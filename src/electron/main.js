@@ -7,4 +7,5 @@ app.whenReady().then(() => {
     height: 600,
   });
   mainWindow.loadFile(path.join(app.getAppPath(), 'dist-react', 'index.html'))
+  // mainWindow.webContents.openDevTools();
 })
