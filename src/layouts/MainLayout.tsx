@@ -9,12 +9,6 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
-      <Link to={ROUTES.HOME} className="text-foreground hover:text-primary">
-        Home
-      </Link>
-      <Link to={ROUTES.LOGIN} className="text-foreground hover:text-primary">
-        Login
-      </Link>
       <main className="container mx-auto px-4 py-8">
         {children}
       </main>

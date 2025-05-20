@@ -5,7 +5,6 @@ import AppRoutes from '@/routes';
 const App = () => {
   return (
     <Router>
-      "sssssss"
       <AppRoutes />
     </Router>
   );
