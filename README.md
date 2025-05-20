@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+<h1>InnHotel Desktop App</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Desktop application built with Electron.js.
 
-Currently, two official plugins are available:
+- [Quick Start](#quick-start)
+  - [Development](#development)
+  - [Building the Application](#building-the-application)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Quick Start
 
-## Expanding the ESLint configuration
+### Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Install dependencies:
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Run the development server:
+```bash
+npm run dev:react    # Start React development server
+npm run dev:electron # Start Electron app
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building the Application
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+1. Build the React application:
+```bash
+npm run build
+```
+
+2. Create Windows executable:
+```bash
+npm run dist
+```
+
+The executable will be available in the `dist` folder:
+- `dist/win-unpacked/innhotel-desktop-client.exe` (Portable version)
+- `dist/innhotel-desktop-client Setup 0.0.0.exe` (Windows installer)
+
+## Tech Stack
+
+- **Electron.js** - Cross-platform desktop application framework
+- **React** - UI library
+- **Vite** - Build tool and development server
+- **TypeScript** - Type-safe JavaScript
+
+## Project Structure
+
+```
+innhotel-desktop-client/
+├── src/
+│   ├── electron/    # Electron main process
+│   └── ui/          # React application
+├── dist-react/      # Built React application
+└── dist/            # Built Electron application
 ```
