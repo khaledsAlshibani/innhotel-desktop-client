@@ -1,13 +1,14 @@
 import './App.css'
-import { Button } from '@/components/ui/button';
+import { HashRouter as Router } from 'react-router-dom';
+import AppRoutes from '@/routes';
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <Button>Shadcn Button</Button>
-    </>
-  )
-}
+    <Router>
+      "sssssss"
+      <AppRoutes />
+    </Router>
+  );
+};
 
-export default App
+export default App;
