@@ -52,7 +52,6 @@ The executable will be available in the `dist` folder:
 innhotel-desktop-client/
 ├── src/
 │   ├── electron/    # Electron main process
-│   └── ui/          # React application
 ├── dist-react/      # Built React application
 └── dist/            # Built Electron application
 ```
