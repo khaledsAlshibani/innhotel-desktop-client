@@ -1,0 +1,21 @@
+{
+  "appId": "com.innhotel.desktop",
+  "files": [
+    "dist-electron",
+    "dist-react"
+  ],
+  "icon": "./assets/desktopIcon.png",
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": [
+      "portable",
+      "msi"
+    ]
+  }
+}
