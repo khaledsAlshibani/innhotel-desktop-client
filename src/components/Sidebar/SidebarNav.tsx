@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BedDouble, Users, Building2 } from "lucide-react";
+import { BedDouble, Users, Building2, CalendarDays } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ interface SidebarNavProps {
 const mainItems = [
   { to: ROUTES.ROOMS, label: "Rooms", icon: BedDouble },
   { to: ROUTES.GUESTS, label: "Guests", icon: Users },
+  { to: ROUTES.RESERVATIONS, label: "Reservations", icon: CalendarDays },
 ];
 
 const managementItems = [

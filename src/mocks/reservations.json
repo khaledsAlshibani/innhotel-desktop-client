@@ -1,0 +1,89 @@
+{
+  "reservations": [
+    {
+      "id": 1,
+      "guest_id": 1,
+      "guest_name": "John Doe",
+      "check_in_date": "2024-03-20",
+      "check_out_date": "2024-03-25",
+      "reservation_date": "2024-03-01",
+      "status": "Confirmed",
+      "total_cost": 1250.00,
+      "branch_id": 1,
+      "branch_name": "InnHotel Downtown",
+      "rooms": [
+        {
+          "id": 1,
+          "room_id": 101,
+          "room_number": "101",
+          "price_per_night": 200.00
+        },
+        {
+          "id": 2,
+          "room_id": 102,
+          "room_number": "102",
+          "price_per_night": 200.00
+        }
+      ],
+      "services": [
+        {
+          "id": 1,
+          "service_id": 1,
+          "service_name": "Breakfast",
+          "quantity": 2,
+          "total_price": 50.00
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "guest_id": 2,
+      "guest_name": "Jane Smith",
+      "check_in_date": "2024-03-15",
+      "check_out_date": "2024-03-18",
+      "reservation_date": "2024-02-28",
+      "status": "Checked In",
+      "total_cost": 750.00,
+      "branch_id": 1,
+      "branch_name": "InnHotel Downtown",
+      "rooms": [
+        {
+          "id": 3,
+          "room_id": 201,
+          "room_number": "201",
+          "price_per_night": 250.00
+        }
+      ],
+      "services": [
+        {
+          "id": 2,
+          "service_id": 2,
+          "service_name": "Spa",
+          "quantity": 1,
+          "total_price": 100.00
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "guest_id": 3,
+      "guest_name": "Robert Johnson",
+      "check_in_date": "2024-03-25",
+      "check_out_date": "2024-03-28",
+      "reservation_date": "2024-03-10",
+      "status": "Pending",
+      "total_cost": 600.00,
+      "branch_id": 2,
+      "branch_name": "InnHotel Airport",
+      "rooms": [
+        {
+          "id": 4,
+          "room_id": 301,
+          "room_number": "301",
+          "price_per_night": 180.00
+        }
+      ],
+      "services": []
+    }
+  ]
+} 
