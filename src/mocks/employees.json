@@ -1,0 +1,84 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "john.smith@innhotel.com",
+      "phone": "+1 (555) 123-4567",
+      "hire_date": "2023-01-15",
+      "position": "Manager",
+      "branch": {
+        "id": 1,
+        "name": "InnHotel Downtown",
+        "location": "Downtown",
+        "address": "123 Main St, Downtown",
+        "phone": "+1 (555) 111-0000"
+      }
+    },
+    {
+      "id": 2,
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "email": "sarah.johnson@innhotel.com",
+      "phone": "+1 (555) 234-5678",
+      "hire_date": "2023-03-20",
+      "position": "Receptionist",
+      "branch": {
+        "id": 1,
+        "name": "InnHotel Downtown",
+        "location": "Downtown",
+        "address": "123 Main St, Downtown",
+        "phone": "+1 (555) 111-0000"
+      }
+    },
+    {
+      "id": 3,
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "email": "michael.brown@innhotel.com",
+      "phone": "+1 (555) 345-6789",
+      "hire_date": "2023-02-10",
+      "position": "Housekeeper",
+      "branch": {
+        "id": 2,
+        "name": "InnHotel Riverside",
+        "location": "Riverside",
+        "address": "456 River Rd, Riverside",
+        "phone": "+1 (555) 222-0000"
+      }
+    },
+    {
+      "id": 4,
+      "first_name": "Emily",
+      "last_name": "Davis",
+      "email": "emily.davis@innhotel.com",
+      "phone": "+1 (555) 456-7890",
+      "hire_date": "2023-04-05",
+      "position": "Chef",
+      "branch": {
+        "id": 2,
+        "name": "InnHotel Riverside",
+        "location": "Riverside",
+        "address": "456 River Rd, Riverside",
+        "phone": "+1 (555) 222-0000"
+      }
+    },
+    {
+      "id": 5,
+      "first_name": "David",
+      "last_name": "Wilson",
+      "email": "david.wilson@innhotel.com",
+      "phone": "+1 (555) 567-8901",
+      "hire_date": "2023-05-12",
+      "position": "Maintenance",
+      "branch": {
+        "id": 3,
+        "name": "InnHotel Airport",
+        "location": "Airport District",
+        "address": "789 Airport Blvd, Airport District",
+        "phone": "+1 (555) 333-0000"
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import Rooms from '@/pages/Rooms';
 import AddRoom from '@/pages/AddRoom';
 import Guests from '@/pages/Guests';
 import RegisterEmployee from '@/pages/RegisterEmployee';
+import Employees from '@/pages/Employees';
 import Branches from '@/pages/Branches';
 import AddBranch from '@/pages/AddBranch';
 import Reservations from '@/pages/Reservations';
@@ -25,6 +26,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
         <Route path={ROUTES.ADD_ROOM} element={<AddRoom />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
+        <Route path={ROUTES.EMPLOYEES} element={<Employees />} />
         <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
         <Route path={ROUTES.BRANCHES} element={<Branches />} />
         <Route path={ROUTES.ADD_BRANCH} element={<AddBranch />} />

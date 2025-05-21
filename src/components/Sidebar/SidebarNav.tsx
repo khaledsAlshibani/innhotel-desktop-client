@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BedDouble, Users, Building2, CalendarDays } from "lucide-react";
+import { BedDouble, Users, Building2, CalendarDays, UserSquare2 } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const mainItems = [
 
 const managementItems = [
   { to: ROUTES.BRANCHES, label: "Branches", icon: Building2 },
+  { to: ROUTES.EMPLOYEES, label: "Employees", icon: UserSquare2 },
 ];
 
 export const SidebarNav = ({ isCollapsed }: SidebarNavProps) => {
