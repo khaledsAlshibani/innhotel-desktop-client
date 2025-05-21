@@ -1,23 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Overlay } from "./Overlay";
 import { SidebarHeader } from "./SidebarHeader";
 import { SidebarNav } from "./SidebarNav";
 import { UserProfile } from "./UserProfile";
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setIsCollapsed(true);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <>
