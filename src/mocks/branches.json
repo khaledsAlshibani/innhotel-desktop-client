@@ -1,0 +1,24 @@
+{
+  "branches": [
+    {
+      "id": 1,
+      "name": "InnHotel Downtown",
+      "location": "123 Main Street, Downtown"
+    },
+    {
+      "id": 2,
+      "name": "InnHotel Airport",
+      "location": "456 Airport Road, Terminal 2"
+    },
+    {
+      "id": 3,
+      "name": "InnHotel Beach Resort",
+      "location": "789 Coastal Highway, Beachfront"
+    },
+    {
+      "id": 4,
+      "name": "InnHotel Mountain Lodge",
+      "location": "321 Mountain View Road, Highlands"
+    }
+  ]
+}

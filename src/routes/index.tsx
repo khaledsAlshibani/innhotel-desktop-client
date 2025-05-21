@@ -6,6 +6,7 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Rooms from '@/pages/Rooms';
 import Guests from '@/pages/Guests';
+import RegisterEmployee from '@/pages/RegisterEmployee';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path={ROUTES.HOME} element={<AppLayout><Outlet /></AppLayout>}>
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
+        <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
       </Route>
     </Routes>
   );
