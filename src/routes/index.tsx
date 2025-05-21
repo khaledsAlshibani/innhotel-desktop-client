@@ -7,6 +7,7 @@ import Login from '@/pages/Login';
 import Rooms from '@/pages/Rooms';
 import Guests from '@/pages/Guests';
 import RegisterEmployee from '@/pages/RegisterEmployee';
+import Branches from '@/pages/Branches';
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
         <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
+        <Route path={ROUTES.BRANCHES} element={<Branches />} />
       </Route>
     </Routes>
   );

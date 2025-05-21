@@ -3,7 +3,8 @@ export const ROUTES = {
   LOGIN: '/login',
   ROOMS: '/rooms',
   GUESTS: '/guests',
-  REGISTER_EMPLOYEE: '/register-employee'
+  REGISTER_EMPLOYEE: '/register-employee',
+  BRANCHES: '/branches'
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;

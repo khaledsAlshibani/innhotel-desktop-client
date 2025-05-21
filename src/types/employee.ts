@@ -1,11 +1,5 @@
 export type Position = 'Receptionist' | 'Manager' | 'Housekeeper' | 'Maintenance' | 'Chef' | 'Waiter';
 
-export interface Branch {
-  id: number;
-  name: string;
-  location: string;
-}
-
 export interface Employee {
   id: string;
   first_name: string;

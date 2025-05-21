@@ -16,8 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { Employee, Position, Branch } from "@/types/employee";
+import type { Employee, Position } from "@/types/employee";
 import branchesData from "@/mocks/branches.json";
+import type { Branch } from "@/types/branches";
 
 const positions: Position[] = [
   'Receptionist',
