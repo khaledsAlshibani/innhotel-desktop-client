@@ -1,0 +1,52 @@
+{
+  "rooms": [
+    {
+      "id": "1",
+      "number": "101",
+      "status": "Available",
+      "type": "Standard",
+      "floor": 1,
+      "branch": "Main Building"
+    },
+    {
+      "id": "2",
+      "number": "102",
+      "status": "Occupied",
+      "type": "Deluxe",
+      "floor": 1,
+      "branch": "Main Building"
+    },
+    {
+      "id": "3",
+      "number": "201",
+      "status": "Under Maintenance",
+      "type": "Suite",
+      "floor": 2,
+      "branch": "Main Building"
+    },
+    {
+      "id": "4",
+      "number": "202",
+      "status": "Available",
+      "type": "Presidential",
+      "floor": 2,
+      "branch": "Main Building"
+    },
+    {
+      "id": "5",
+      "number": "301",
+      "status": "Available",
+      "type": "Deluxe",
+      "floor": 3,
+      "branch": "Main Building"
+    },
+    {
+      "id": "6",
+      "number": "302",
+      "status": "Occupied",
+      "type": "Standard",
+      "floor": 3,
+      "branch": "Main Building"
+    }
+  ]
+} 

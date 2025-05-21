@@ -9,8 +9,12 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar />
-      <main className="flex-1 ml-20 lg:ml-64 p-8">
-        {children}
+      <main className="pl-16 w-full">
+        <div className="p-12">
+          <div className="max-w-7xl mx-auto w-full">
+            {children}
+          </div>
+        </div>
       </main>
     </div>
   );
