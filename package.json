@@ -3,17 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "src/electron/main.js",
+  "main": "dist-electron/main.js",
   "build": {
     "appId": "com.innhotel.desktop"
   },
   "scripts": {
     "dev:react": "vite",
-    "dev:electron": "electron .",
+    "dev:electron": "npm run transpile:electron && electron .",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dist": "npm run build && electron-builder"
+    "dist": "npm run build && electron-builder",
+    "transpile:electron": "tsc -p src/electron/tsconfig.json"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
