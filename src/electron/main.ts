@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
+import { isDevEnv } from './utils/isDevEnv.js';
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
@@ -12,6 +13,11 @@ app.whenReady().then(() => {
       nodeIntegration: true
     }
   });
-  mainWindow.loadFile(path.join(app.getAppPath(), 'dist-react', 'index.html'))
-  // mainWindow.webContents.openDevTools();
+
+  if (isDevEnv()) {
+    mainWindow.loadURL('http://localhost:5173')
+    // mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(app.getAppPath(), 'dist-react', 'index.html'))
+  }
 })
