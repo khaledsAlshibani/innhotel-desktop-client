@@ -1,0 +1,57 @@
+{
+  "guests": [
+    {
+      "id": "1",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@example.com",
+      "gender": "male",
+      "phone": "+1-555-0123",
+      "address": "123 Main St, New York, NY 10001",
+      "id_proof_type": "passport",
+      "id_proof_number": "P123456789"
+    },
+    {
+      "id": "2",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "gender": "female",
+      "phone": "+1-555-0124",
+      "address": "456 Park Ave, Boston, MA 02108",
+      "id_proof_type": "drivers_license",
+      "id_proof_number": "DL987654321"
+    },
+    {
+      "id": "3",
+      "first_name": "Michael",
+      "last_name": "Johnson",
+      "email": "michael.j@example.com",
+      "gender": "male",
+      "phone": "+1-555-0125",
+      "address": "789 Oak Rd, Chicago, IL 60601",
+      "id_proof_type": "national_id",
+      "id_proof_number": "ID45678901"
+    },
+    {
+      "id": "4",
+      "first_name": "Emily",
+      "last_name": "Brown",
+      "email": "emily.b@example.com",
+      "gender": "female",
+      "phone": "+1-555-0126",
+      "address": "321 Pine St, San Francisco, CA 94101",
+      "id_proof_type": "passport",
+      "id_proof_number": "P987012345"
+    },
+    {
+      "id": "5",
+      "first_name": "David",
+      "last_name": "Wilson",
+      "gender": "male",
+      "phone": "+1-555-0127",
+      "address": "654 Maple Dr, Seattle, WA 98101",
+      "id_proof_type": "national_id",
+      "id_proof_number": "ID12309876"
+    }
+  ]
+} 
