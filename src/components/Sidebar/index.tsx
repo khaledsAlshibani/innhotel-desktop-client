@@ -15,8 +15,9 @@ const Sidebar = () => {
       />
 
       <aside
-        className={`flex h-screen flex-col fixed left-0 top-0 border-r bg-background transition-all duration-300 z-40 ${isCollapsed ? "w-16" : "w-64 shadow-[5px_0_25px_0_rgba(0,0,0,0.1)]"
-          }`}
+        className={`flex h-screen flex-col fixed left-0 top-0 border-r border-zinc-800 bg-zinc-900 transition-all duration-300 z-40 ${
+          isCollapsed ? "w-16" : "w-64 shadow-[5px_0_25px_0_rgba(0,0,0,0.25)]"
+        }`}
       >
         <SidebarHeader
           isCollapsed={isCollapsed}
