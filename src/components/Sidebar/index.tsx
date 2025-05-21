@@ -3,6 +3,7 @@ import { Overlay } from "./Overlay";
 import { SidebarHeader } from "./SidebarHeader";
 import { SidebarNav } from "./SidebarNav";
 import { UserProfile } from "./UserProfile";
+import { QuickActions } from "./QuickActions";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -24,6 +25,7 @@ const Sidebar = () => {
           onCollapse={() => setIsCollapsed(!isCollapsed)}
         />
         <SidebarNav isCollapsed={isCollapsed} />
+        <QuickActions isCollapsed={isCollapsed} />
         <UserProfile isCollapsed={isCollapsed} />
       </aside>
     </>

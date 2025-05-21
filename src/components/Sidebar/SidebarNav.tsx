@@ -13,7 +13,6 @@ const mainItems = [
 ];
 
 const managementItems = [
-  { to: ROUTES.REGISTER_EMPLOYEE, label: "Register Employee", icon: UserPlus },
   { to: ROUTES.BRANCHES, label: "Branches", icon: Building2 },
 ];
 
