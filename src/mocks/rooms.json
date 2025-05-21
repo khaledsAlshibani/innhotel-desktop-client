@@ -1,52 +1,67 @@
 {
   "rooms": [
     {
-      "id": "1",
+      "id": 101,
       "number": "101",
-      "status": "Available",
       "type": "Standard",
+      "status": "Available",
       "floor": 1,
-      "branch": "Main Building"
+      "branch_id": 1,
+      "price_per_night": 200.00
     },
     {
-      "id": "2",
+      "id": 102,
       "number": "102",
-      "status": "Occupied",
-      "type": "Deluxe",
-      "floor": 1,
-      "branch": "Main Building"
-    },
-    {
-      "id": "3",
-      "number": "201",
-      "status": "Under Maintenance",
-      "type": "Suite",
-      "floor": 2,
-      "branch": "Main Building"
-    },
-    {
-      "id": "4",
-      "number": "202",
-      "status": "Available",
-      "type": "Presidential",
-      "floor": 2,
-      "branch": "Main Building"
-    },
-    {
-      "id": "5",
-      "number": "301",
-      "status": "Available",
-      "type": "Deluxe",
-      "floor": 3,
-      "branch": "Main Building"
-    },
-    {
-      "id": "6",
-      "number": "302",
-      "status": "Occupied",
       "type": "Standard",
+      "status": "Available",
+      "floor": 1,
+      "branch_id": 1,
+      "price_per_night": 200.00
+    },
+    {
+      "id": 201,
+      "number": "201",
+      "type": "Deluxe",
+      "status": "Occupied",
+      "floor": 2,
+      "branch_id": 1,
+      "price_per_night": 300.00
+    },
+    {
+      "id": 202,
+      "number": "202",
+      "type": "Deluxe",
+      "status": "Available",
+      "floor": 2,
+      "branch_id": 1,
+      "price_per_night": 300.00
+    },
+    {
+      "id": 301,
+      "number": "301",
+      "type": "Suite",
+      "status": "Available",
       "floor": 3,
-      "branch": "Main Building"
+      "branch_id": 1,
+      "price_per_night": 500.00
+    },
+    {
+      "id": 302,
+      "number": "302",
+      "type": "Suite",
+      "status": "Under Maintenance",
+      "floor": 3,
+      "branch_id": 1,
+      "price_per_night": 500.00
+    },
+    {
+      "id": 401,
+      "number": "401",
+      "type": "Presidential",
+      "status": "Available",
+      "floor": 4,
+      "branch_id": 1,
+      "price_per_night": 1000.00
     }
   ]
 }

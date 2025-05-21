@@ -49,8 +49,8 @@ export const ReservationsTable = ({ reservations, onReservationClick }: Reservat
         </TableHeader>
         <TableBody>
           {reservations.map((reservation) => (
-            <TableRow 
-              key={reservation.id} 
+            <TableRow
+              key={reservation.id}
               className="cursor-pointer hover:bg-muted/50"
               onClick={() => onReservationClick?.(reservation)}
             >
@@ -86,8 +86,8 @@ export const ReservationsTable = ({ reservations, onReservationClick }: Reservat
                 </div>
               </TableCell>
               <TableCell>
-                <Badge 
-                  variant="outline" 
+                <Badge
+                  variant="outline"
                   className={cn(
                     "font-medium text-xs tracking-wide",
                     statusStyles[reservation.status].color,
@@ -118,4 +118,4 @@ export const ReservationsTable = ({ reservations, onReservationClick }: Reservat
       </Table>
     </div>
   );
-}; 
+};

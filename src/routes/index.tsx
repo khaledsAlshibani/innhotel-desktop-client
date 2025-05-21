@@ -11,6 +11,7 @@ import RegisterEmployee from '@/pages/RegisterEmployee';
 import Branches from '@/pages/Branches';
 import AddBranch from '@/pages/AddBranch';
 import Reservations from '@/pages/Reservations';
+import AddReservation from '@/pages/AddReservation';
 
 const AppRoutes = () => {
   return (
@@ -28,6 +29,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.BRANCHES} element={<Branches />} />
         <Route path={ROUTES.ADD_BRANCH} element={<AddBranch />} />
         <Route path={ROUTES.RESERVATIONS} element={<Reservations />} />
+        <Route path={ROUTES.ADD_RESERVATION} element={<AddReservation />} />
       </Route>
     </Routes>
   );

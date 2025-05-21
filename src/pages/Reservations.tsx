@@ -24,9 +24,9 @@ const Reservations = () => {
 
   const filteredReservations = allReservations.filter(reservation => {
     const matchesSearch = reservation.guest_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         reservation.branch_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         reservation.rooms.some(room => room.room_number.includes(searchQuery));
-    
+      reservation.branch_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      reservation.rooms.some(room => room.room_number.includes(searchQuery));
+
     const matchesStatus = statusFilter === "all" || reservation.status === statusFilter;
 
     return matchesSearch && matchesStatus;
@@ -82,7 +82,7 @@ const Reservations = () => {
         </Select>
       </div>
 
-      <ReservationsTable 
+      <ReservationsTable
         reservations={filteredReservations}
         onReservationClick={handleReservationClick}
       />
@@ -90,4 +90,4 @@ const Reservations = () => {
   );
 };
 
-export default Reservations; 
+export default Reservations;
