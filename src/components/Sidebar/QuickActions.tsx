@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Plus, Building2, UserPlus } from "lucide-react";
+import { Plus, Building2, UserPlus, BedDouble } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
@@ -50,6 +50,13 @@ export const QuickActions = ({ isCollapsed }: QuickActionsProps) => {
         >
           <DropdownMenuLabel className="text-zinc-100">Quick Actions</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-zinc-700" />
+          <DropdownMenuItem 
+            className="text-zinc-300 focus:text-zinc-100 focus:bg-zinc-700/50"
+            onClick={() => navigate(ROUTES.ADD_ROOM)}
+          >
+            <BedDouble className="mr-2 h-4 w-4" />
+            Add Room
+          </DropdownMenuItem>
           <DropdownMenuItem 
             className="text-zinc-300 focus:text-zinc-100 focus:bg-zinc-700/50"
             onClick={() => navigate(ROUTES.ADD_BRANCH)}

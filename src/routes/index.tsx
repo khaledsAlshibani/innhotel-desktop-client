@@ -5,6 +5,7 @@ import AppLayout from '@/layouts/AppLayout';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Rooms from '@/pages/Rooms';
+import AddRoom from '@/pages/AddRoom';
 import Guests from '@/pages/Guests';
 import RegisterEmployee from '@/pages/RegisterEmployee';
 import Branches from '@/pages/Branches';
@@ -20,6 +21,7 @@ const AppRoutes = () => {
 
       <Route path={ROUTES.HOME} element={<AppLayout><Outlet /></AppLayout>}>
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
+        <Route path={ROUTES.ADD_ROOM} element={<AddRoom />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
         <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
         <Route path={ROUTES.BRANCHES} element={<Branches />} />

@@ -10,3 +10,11 @@ export interface Room {
   floor: number;
   branch?: string;
 }
+
+export interface CreateRoomFormData {
+  room_number: string;
+  room_type_id: RoomType;
+  status: RoomStatus;
+  floor: number;
+  branch_id: string;
+}
