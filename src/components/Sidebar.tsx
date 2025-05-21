@@ -1,13 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,14 +16,33 @@ import {
   ChevronFirst,
   ChevronLast,
   LogOut,
-  Menu,
   Settings,
   User,
   Users,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Auto-collapse on small screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsCollapsed(true);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const sidebarItems = [
     { to: ROUTES.ROOMS, label: "Rooms", icon: BedDouble },
     { to: ROUTES.GUESTS, label: "Guests", icon: Users },
@@ -43,40 +55,21 @@ const Sidebar = () => {
   };
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="lg:hidden">
-          <Menu className="h-6 w-6" />
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-64 p-0">
-        <SheetHeader className="p-6 border-b">
-          <SheetTitle>InnHotel</SheetTitle>
-        </SheetHeader>
-        <nav className="flex flex-col gap-2 p-4">
-          {sidebarItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="flex items-center gap-2 px-3 py-2 hover:bg-accent rounded-md transition-colors"
-              >
-                <Icon className="h-5 w-5" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
-      </SheetContent>
+    <>
+      {/* Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-30 transition-opacity duration-300 ${
+          !isCollapsed ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsCollapsed(true)}
+      />
 
-      {/* Desktop sidebar */}
       <aside 
-        className={`hidden lg:flex h-screen flex-col fixed left-0 top-0 border-r bg-background transition-all duration-300 ${
-          isCollapsed ? "w-20" : "w-64"
+        className={`flex h-screen flex-col fixed left-0 top-0 border-r bg-background transition-all duration-300 z-40 ${
+          isCollapsed ? "w-16" : "w-64 shadow-[5px_0_25px_0_rgba(0,0,0,0.1)]"
         }`}
       >
-        <div className={`p-6 border-b flex items-center ${isCollapsed ? "justify-center" : "justify-between"}`}>
+        <div className={`border-b flex items-center ${isCollapsed ? "p-6 justify-center" : "p-4 justify-between"}`}>
           <h2 className={`text-lg font-semibold transition-opacity ${isCollapsed ? "opacity-0 hidden" : "opacity-100"}`}>
             InnHotel
           </h2>
@@ -90,8 +83,11 @@ const Sidebar = () => {
           </Button>
         </div>
 
-        <div className="flex-1">
-          <nav className="flex flex-col gap-4 p-4">
+        <nav className="flex-1 overflow-y-auto">
+          <div className={cn(
+            "flex flex-col",
+            isCollapsed ? "p-2 gap-2" : "p-4"
+          )}>
             {sidebarItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -103,13 +99,13 @@ const Sidebar = () => {
                   }`}
                   title={isCollapsed ? item.label : undefined}
                 >
-                  <Icon className={`${isCollapsed ? "h-5 w-5" : "h-5 w-5"} transition-all duration-300`} />
+                  <Icon className={`${isCollapsed ? "h-4 w-4" : "h-4 w-4"} transition-all duration-300`} />
                   {!isCollapsed && <span>{item.label}</span>}
                 </Link>
               );
             })}
-          </nav>
-        </div>
+          </div>
+        </nav>
 
         <div className="border-t p-4">
           <DropdownMenu>
@@ -132,7 +128,7 @@ const Sidebar = () => {
                 )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align={isCollapsed ? "center" : "end"} className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -152,7 +148,7 @@ const Sidebar = () => {
           </DropdownMenu>
         </div>
       </aside>
-    </Sheet>
+    </>
   );
 };
 
