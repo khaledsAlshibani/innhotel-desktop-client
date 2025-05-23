@@ -34,7 +34,6 @@ const Reservations = () => {
 
   const handleReservationClick = (reservation: Reservation) => {
     console.log("Reservation clicked:", reservation);
-    // TODO: Navigate to reservation details page
   };
 
   return (

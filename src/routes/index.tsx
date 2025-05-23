@@ -13,6 +13,7 @@ import Branches from '@/pages/Branches';
 import AddBranch from '@/pages/AddBranch';
 import Reservations from '@/pages/Reservations';
 import AddReservation from '@/pages/AddReservation';
+import BranchDetails from '@/pages/BranchDetails';
 
 const AppRoutes = () => {
   return (
@@ -32,6 +33,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ADD_BRANCH} element={<AddBranch />} />
         <Route path={ROUTES.RESERVATIONS} element={<Reservations />} />
         <Route path={ROUTES.ADD_RESERVATION} element={<AddReservation />} />
+        <Route path={ROUTES.BRANCH_DETAILS} element={<BranchDetails />} />
       </Route>
     </Routes>
   );

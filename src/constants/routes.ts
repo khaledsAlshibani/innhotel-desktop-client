@@ -8,6 +8,7 @@ export const ROUTES = {
   REGISTER_EMPLOYEE: '/employees/register',
   BRANCHES: '/branches',
   ADD_BRANCH: '/branches/add',
+  BRANCH_DETAILS: '/branches/:id',
   ADD_ROOM: '/rooms/add',
   RESERVATIONS: '/reservations',
   ADD_RESERVATION: '/reservations/add',

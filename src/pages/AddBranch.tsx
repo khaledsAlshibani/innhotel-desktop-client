@@ -1,15 +1,28 @@
 import { BranchForm } from "@/components/branches/BranchForm";
-import type { Branch } from "@/types/branches";
+import type { Branch } from "@/types/api/branch";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import FormLayout from "@/layouts/FormLayout";
+import { branchService } from "@/services/branchService";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const AddBranch = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (data: Omit<Branch, 'id'>) => {
-    console.log("New branch data:", data);
-    navigate(ROUTES.BRANCHES);
+  const handleSubmit = async (data: Branch) => {
+    try {
+      setIsLoading(true);
+      await branchService.create(data);
+      toast.success('Branch created successfully');
+      navigate(ROUTES.BRANCHES);
+    } catch (error) {
+      console.error('Failed to create branch:', error);
+      toast.error('Failed to create branch');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -17,7 +30,7 @@ const AddBranch = () => {
       title="Add New Branch"
       description="Create a new branch location for your hotel chain."
     >
-      <BranchForm onSubmit={handleSubmit} />
+      <BranchForm onSubmit={handleSubmit} isLoading={isLoading} />
     </FormLayout>
   );
 };

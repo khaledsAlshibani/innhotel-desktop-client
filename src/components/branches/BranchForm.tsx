@@ -9,28 +9,45 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { Branch } from "@/types/branches";
-
-type BranchFormData = Omit<Branch, 'id'>;
+import type { Branch } from "@/types/api/branch";
 
 interface BranchFormProps {
-  onSubmit: (data: BranchFormData) => void;
-  defaultValues?: Partial<BranchFormData>;
+  onSubmit: (data: Branch) => void;
+  defaultValues?: Partial<Branch>;
+  isLoading?: boolean;
+  mode?: 'create' | 'update';
 }
 
-export const BranchForm = ({ onSubmit, defaultValues }: BranchFormProps) => {
-  const form = useForm<BranchFormData>({
+export const BranchForm = ({ 
+  onSubmit, 
+  defaultValues, 
+  isLoading,
+  mode = 'create' 
+}: BranchFormProps) => {
+  const form = useForm<Branch>({
     defaultValues: {
       name: "",
       location: "",
-      rooms_count: 0,
       ...defaultValues
     },
   });
 
+  const handleSubmit = async (data: Branch) => {
+    try {
+      await onSubmit(data);
+      if (mode === 'create') {
+        form.reset();
+      }
+    } catch (error) {
+      console.error('Form submission failed:', error);
+    }
+  };
+
+  const isUpdate = mode === 'update';
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -59,28 +76,15 @@ export const BranchForm = ({ onSubmit, defaultValues }: BranchFormProps) => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="rooms_count"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Number of Rooms</FormLabel>
-              <FormControl>
-                <Input 
-                  type="number" 
-                  min={0}
-                  placeholder="Enter number of rooms" 
-                  {...field}
-                  onChange={e => field.onChange(Number(e.target.value))}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" className="w-full">
-          Save Branch
+        <Button 
+          type="submit" 
+          className="w-full" 
+          disabled={isLoading}
+        >
+          {isLoading 
+            ? (isUpdate ? "Saving Changes..." : "Creating Branch...") 
+            : (isUpdate ? "Save Changes" : "Create Branch")
+          }
         </Button>
       </form>
     </Form>

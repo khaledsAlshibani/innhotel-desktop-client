@@ -1,4 +1,4 @@
-import { Building2, MapPin, ChevronRight, BedDouble, Users } from "lucide-react";
+import { Building2, MapPin, ChevronRight } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -8,12 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import type { Branch } from "@/types/branches";
+import type { BranchResponse } from "@/types/api/branch";
 
 interface BranchesTableProps {
-  branches: Branch[];
-  onBranchClick?: (branch: Branch) => void;
+  branches: BranchResponse[];
+  onBranchClick?: (branch: BranchResponse) => void;
 }
 
 export const BranchesTable = ({ branches, onBranchClick }: BranchesTableProps) => {
@@ -24,13 +23,16 @@ export const BranchesTable = ({ branches, onBranchClick }: BranchesTableProps) =
           <TableRow>
             <TableHead>Branch Name</TableHead>
             <TableHead>Location</TableHead>
-            <TableHead>Capacity</TableHead>
             <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {branches.map((branch) => (
-            <TableRow key={branch.id} className="cursor-pointer hover:bg-muted/50">
+            <TableRow 
+              key={branch.id} 
+              className="cursor-pointer hover:bg-muted/50 transition-colors"
+              onClick={() => onBranchClick?.(branch)}
+            >
               <TableCell>
                 <div className="flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-muted-foreground" />
@@ -43,32 +45,8 @@ export const BranchesTable = ({ branches, onBranchClick }: BranchesTableProps) =
                   <span>{branch.location}</span>
                 </div>
               </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <Badge 
-                    variant="outline" 
-                    className="flex items-center gap-1.5 text-blue-600 border-blue-600/20"
-                  >
-                    <BedDouble className="h-3 w-3" />
-                    {branch.rooms_count} Rooms
-                  </Badge>
-                  <Badge 
-                    variant="outline" 
-                    className="flex items-center gap-1.5 text-emerald-600 border-emerald-600/20"
-                  >
-                    <Users className="h-3 w-3" />
-                    {branch.employees_count} Staff
-                  </Badge>
-                </div>
-              </TableCell>
-              <TableCell>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onBranchClick?.(branch)}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+              <TableCell className="text-right">
+                <ChevronRight className="h-4 w-4 text-muted-foreground inline-block" />
               </TableCell>
             </TableRow>
           ))}
