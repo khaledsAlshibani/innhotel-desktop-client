@@ -2,6 +2,7 @@ import { BranchForm } from "@/components/branches/BranchForm";
 import type { Branch } from "@/types/branches";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
+import FormLayout from "@/layouts/FormLayout";
 
 const AddBranch = () => {
   const navigate = useNavigate();
@@ -12,18 +13,12 @@ const AddBranch = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-full">
-      <div className="space-y-10 w-[500px] max-w-full">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold">Add New Branch</h1>
-          <p className="text-muted-foreground">
-            Create a new branch location for your hotel chain.
-          </p>
-        </div>
-
-        <BranchForm onSubmit={handleSubmit} />
-      </div>
-    </div>
+    <FormLayout
+      title="Add New Branch"
+      description="Create a new branch location for your hotel chain."
+    >
+      <BranchForm onSubmit={handleSubmit} />
+    </FormLayout>
   );
 };
 

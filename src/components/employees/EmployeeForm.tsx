@@ -141,7 +141,7 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a position" />
                     </SelectTrigger>
                   </FormControl>
@@ -170,7 +170,7 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
                 defaultValue={String(field.value)}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a branch" />
                   </SelectTrigger>
                 </FormControl>

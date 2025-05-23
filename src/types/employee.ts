@@ -1,14 +1,22 @@
-export type Position = 'Receptionist' | 'Manager' | 'Housekeeper' | 'Maintenance' | 'Chef' | 'Waiter';
+import type { Branch } from "./branches";
 
 export interface Employee {
-  id: string;
+  id: number;
   first_name: string;
   last_name: string;
-  email?: string;
+  email: string;
   phone: string;
   hire_date: string;
-  position: Position;
-  branch_id: number;
+  position: string;
+  branch: Branch;
 }
 
-export type EmployeeFormData = Omit<Employee, 'id'>;
+export interface EmployeeFormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  hire_date: Date;
+  position: string;
+  branch_id: string;
+}
