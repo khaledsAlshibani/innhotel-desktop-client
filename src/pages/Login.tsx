@@ -11,29 +11,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { authService } from "@/services/authService";
 import { useState } from "react";
+import { useAuthStore } from "@/store/auth.store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { setAuth, setLoading, isLoading } = useAuthStore();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "super@innhotel.com",
+      password: "Sup3rP@ssword!",
     },
   });
 
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       setError(null);
       const response = await authService.login(data);
-      console.log('Login Response:', response);
+      setAuth(response);
+      navigate("/rooms");
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
       console.error('Login Error:', err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
