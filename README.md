@@ -266,3 +266,23 @@ const mainItems = [
   Add New Item
 </DropdownMenuItem>
 ```
+
+---
+
+## Scrrenshots
+
+![image](https://github.com/user-attachments/assets/dd9df4fb-c3ef-4201-86e2-d0c6a24ad857)
+
+![image](https://github.com/user-attachments/assets/dabb14b3-502e-480f-ab0e-3d271036ffd9)
+
+![image](https://github.com/user-attachments/assets/15e5675d-2baf-4c21-bf05-2d6b5a19e26a)
+
+![image](https://github.com/user-attachments/assets/fa0ba2fa-4d6a-4f18-80c9-31382e07681b)
+
+![image](https://github.com/user-attachments/assets/eee803b4-ccfa-45e7-939f-a7a887f884a1)
+
+![image](https://github.com/user-attachments/assets/aa4a8e97-9e82-4f45-9dc8-eb3f02af5f3f)
+
+![image](https://github.com/user-attachments/assets/1707ffbc-4e70-451b-afcd-ac44eceb3e35)
+
+![image](https://github.com/user-attachments/assets/4f3f0864-abf1-4e5b-a3c8-f8add3df2e65)
