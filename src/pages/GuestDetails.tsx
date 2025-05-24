@@ -4,7 +4,7 @@ import type { GuestResponse, Guest, UpdateGuestResponse } from "@/types/api/gues
 import { guestService } from "@/services/guestService";
 import { ROUTES } from "@/constants/routes";
 import { Button } from "@/components/ui/button";
-import { User, Mail, Phone, Trash } from "lucide-react";
+import { User, Mail, Trash } from "lucide-react";
 import { CardTitle, CardDescription } from "@/components/ui/card";
 import { toast } from "sonner";
 import { DeleteConfirmationDialog } from "@/components/Dialog/DeleteConfirmationDialog";

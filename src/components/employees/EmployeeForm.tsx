@@ -16,22 +16,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { Employee, Position } from "@/types/employee";
+import { Position, type EmployeeFormData } from "@/types/employee";
 import branchesData from "@/mocks/branches.json";
 import type { Branch } from "@/types/branches";
 
-const positions: Position[] = [
-  'Receptionist',
-  'Manager',
-  'Housekeeper',
-  'Maintenance',
-  'Chef',
-  'Waiter'
-];
-
+const positions = Object.values(Position);
 const branches: Branch[] = branchesData.branches;
-
-type EmployeeFormData = Omit<Employee, 'id'>;
 
 interface EmployeeFormProps {
   onSubmit: (data: EmployeeFormData) => void;
@@ -46,7 +36,7 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
       email: "",
       phone: "",
       hire_date: new Date().toISOString().split('T')[0],
-      position: 'Receptionist',
+      position: Position.Receptionist,
       branch_id: 1,
       ...defaultValues
     },

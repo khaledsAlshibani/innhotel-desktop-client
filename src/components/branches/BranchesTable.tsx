@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import type { BranchResponse } from "@/types/api/branch";
 
 interface BranchesTableProps {

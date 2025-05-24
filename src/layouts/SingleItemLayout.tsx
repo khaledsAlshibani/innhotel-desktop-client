@@ -16,7 +16,6 @@ interface SingleItemLayoutProps {
 const SingleItemLayout = ({
   title,
   description,
-  backHref,
   onBackClick,
   actionButton,
   overview,

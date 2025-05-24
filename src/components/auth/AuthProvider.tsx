@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) {
     log.info('Rendering loading state');
     return (
-      <LoadingSpinner size="xl" color="primary" fullScreen={true} />
+      <LoadingSpinner />
     );
   }
 
