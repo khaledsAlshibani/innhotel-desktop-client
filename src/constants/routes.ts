@@ -11,6 +11,7 @@ export const ROUTES = {
   ADD_BRANCH: '/branches/add',
   BRANCH_DETAILS: '/branches/:id',
   ADD_ROOM: '/rooms/add',
+  ROOM_DETAILS: '/rooms/:id',
   RESERVATIONS: '/reservations',
   ADD_RESERVATION: '/reservations/add',
   SERVICES: '/services',

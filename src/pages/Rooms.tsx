@@ -1,38 +1,59 @@
-import mockData from "@/mocks/rooms.json";
-import type { Room, RoomStatus, RoomType } from "@/types/room";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { RoomResponse } from "@/types/api/room";
 import { RoomsListing } from "@/components/rooms/RoomsListing";
-
-const isValidStatus = (status: string): status is RoomStatus => {
-  return ['Available', 'Occupied', 'Under Maintenance'].includes(status);
-};
-
-const isValidType = (type: string): type is RoomType => {
-  return ['Standard', 'Deluxe', 'Suite', 'Presidential'].includes(type);
-};
-
-const roomsData = {
-  rooms: mockData.rooms.map(room => ({
-    ...room,
-    status: isValidStatus(room.status) ? room.status : 'Available',
-    type: isValidType(room.type) ? room.type : 'Standard'
-  })) as Room[]
-};
+import { roomService } from "@/services/roomService";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { ROUTES } from "@/constants/routes";
+import { toast } from "sonner";
 
 const Rooms = () => {
-  const handleRoomClick = (room: Room) => {
-    console.log("Room clicked:", room);
+  const navigate = useNavigate();
+  const [rooms, setRooms] = useState<RoomResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        setIsLoading(true);
+        const response = await roomService.getAll();
+        setRooms(response.items);
+      } catch (error) {
+        console.error('Failed to fetch rooms:', error);
+        toast.error('Failed to load rooms');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+  const handleRoomClick = (room: RoomResponse) => {
+    navigate(`${ROUTES.ROOMS}/${room.id}`);
   };
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold">Rooms Management</h1>
-        <p className="text-muted-foreground">Manage your hotel rooms and their status.</p>
+    <div className="container mx-auto py-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Rooms Management</h1>
+          <p className="text-muted-foreground">Manage your hotel rooms and their status.</p>
+        </div>
+        <Button 
+          onClick={() => navigate(ROUTES.ADD_ROOM)} 
+          className="gap-2"
+        >
+          <Plus className="h-4 w-4" />
+          Add Room
+        </Button>
       </div>
 
       <RoomsListing 
-        rooms={roomsData.rooms} 
+        rooms={rooms} 
         onRoomClick={handleRoomClick}
+        isLoading={isLoading}
       />
     </div>
   );
