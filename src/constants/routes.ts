@@ -4,6 +4,7 @@ export const ROUTES = {
   ROOMS: '/rooms',
   GUESTS: '/guests',
   REGISTER_GUEST: '/guests/register',
+  GUEST_DETAILS: '/guests/:id',
   EMPLOYEES: '/employees',
   REGISTER_EMPLOYEE: '/employees/register',
   BRANCHES: '/branches',

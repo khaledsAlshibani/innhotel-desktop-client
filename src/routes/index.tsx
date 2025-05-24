@@ -14,6 +14,8 @@ import AddBranch from '@/pages/AddBranch';
 import Reservations from '@/pages/Reservations';
 import AddReservation from '@/pages/AddReservation';
 import BranchDetails from '@/pages/BranchDetails';
+import GuestDetails from '@/pages/GuestDetails';
+import RegisterGuest from '@/pages/RegisterGuest';
 
 const AppRoutes = () => {
   return (
@@ -27,6 +29,8 @@ const AppRoutes = () => {
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
         <Route path={ROUTES.ADD_ROOM} element={<AddRoom />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
+        <Route path={ROUTES.REGISTER_GUEST} element={<RegisterGuest />} />
+        <Route path={ROUTES.GUEST_DETAILS} element={<GuestDetails />} />
         <Route path={ROUTES.EMPLOYEES} element={<Employees />} />
         <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
         <Route path={ROUTES.BRANCHES} element={<Branches />} />
