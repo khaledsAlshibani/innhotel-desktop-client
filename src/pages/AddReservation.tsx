@@ -8,7 +8,6 @@ const AddReservation = () => {
 
   const handleSubmit = (data: any) => {
     console.log("New reservation data:", data);
-    // TODO: Add API call to create reservation
     navigate(ROUTES.RESERVATIONS);
   };
 

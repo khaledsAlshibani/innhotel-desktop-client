@@ -1,18 +1,35 @@
 import { BranchesTable } from "@/components/branches/BranchesTable";
-import type { Branch } from "@/types/branches";
-import branchesData from "@/mocks/branches.json";
+import type { BranchResponse } from "@/types/api/branch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
+import { branchService } from "@/services/branchService";
+import { useState, useEffect } from "react";
 
 const Branches = () => {
   const navigate = useNavigate();
-  const branches: Branch[] = branchesData.branches;
+  const [branches, setBranches] = useState<BranchResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleBranchClick = (branch: Branch) => {
-    console.log("Branch clicked:", branch);
+  useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        const response = await branchService.getAll();
+        setBranches(response.items);
+      } catch (error) {
+        console.error('Failed to fetch branches:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBranches();
+  }, []);
+
+  const handleBranchClick = (branch: BranchResponse) => {
+    navigate(`/branches/${branch.id}`);
   };
 
   return (
@@ -21,7 +38,7 @@ const Branches = () => {
         <div className="space-y-1">
           <h1 className="text-2xl font-bold">Branches Management</h1>
           <p className="text-muted-foreground">
-            View and manage hotel branch locations.
+            View and manage branch information.
           </p>
         </div>
         <Button onClick={() => navigate(ROUTES.ADD_BRANCH)}>
@@ -43,10 +60,14 @@ const Branches = () => {
         </Button>
       </div>
 
-      <BranchesTable 
-        branches={branches} 
-        onBranchClick={handleBranchClick}
-      />
+      {isLoading ? (
+        <div className="text-center text-muted-foreground">Loading branches...</div>
+      ) : (
+        <BranchesTable 
+          branches={branches} 
+          onBranchClick={handleBranchClick}
+        />
+      )}
     </div>
   );
 };

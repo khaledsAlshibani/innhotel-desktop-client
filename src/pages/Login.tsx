@@ -9,17 +9,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authService } from "@/services/authService";
+import { useState } from "react";
+import { useAuthStore } from "@/store/auth.store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [error, setError] = useState<string | null>(null);
+  const { setAuth, setLoading, isLoading } = useAuthStore();
+  const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "super@innhotel.com",
+      password: "Sup3rP@ssword!",
     },
   });
 
-  const onSubmit = (data: { email: string; password: string }) => {
-    console.log(data);
+  const onSubmit = async (data: { email: string; password: string }) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await authService.login(data);
+      setAuth(response);
+      navigate("/rooms");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+      console.error('Login Error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -28,6 +47,12 @@ const Login = () => {
         <h1 className="text-2xl font-bold">Login</h1>
         <p className="text-muted-foreground max-w-[400px] mx-auto">Enter your credentials to access your account</p>
       </div>
+      
+      {error && (
+        <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md">
+          {error || "Something went wrong"}
+        </div>
+      )}
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -59,8 +84,8 @@ const Login = () => {
             )}
           />
           
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
       </Form>

@@ -1,10 +1,15 @@
 import { HashRouter as Router } from 'react-router-dom';
 import AppRoutes from '@/routes';
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import { Toaster } from 'sonner';
 
 const App = () => {
   return (
     <Router>
-      <AppRoutes />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+      <Toaster position="top-center" richColors />
     </Router>
   );
 };

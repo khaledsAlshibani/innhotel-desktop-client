@@ -1,6 +1,5 @@
-import { ChevronRight, Mail, Phone, Mars, Venus, Eye, EyeOff } from "lucide-react";
+import { ChevronRight, Mail, Phone, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import type { Guest } from "@/types/guest";
 import {
   Table,
   TableBody,
@@ -10,27 +9,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import type { GuestResponse } from "@/types/api/guest";
 
 interface GuestsTableProps {
-  guests: Guest[];
-  onGuestClick?: (guest: Guest) => void;
+  guests: GuestResponse[];
+  onGuestClick?: (guest: GuestResponse) => void;
 }
 
 export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
-  const [visibleIds, setVisibleIds] = useState<Record<string, boolean>>({});
+  const [visibleIds, setVisibleIds] = useState<Record<number, boolean>>({});
 
-  const toggleIdVisibility = (guestId: string) => {
-    setVisibleIds(prev => ({
-      ...prev,
-      [guestId]: !prev[guestId]
-    }));
-  };
+  const toggleId = (id: number) =>
+    setVisibleIds(v => ({ ...v, [id]: !v[id] }));
 
-  const maskId = (id: string) => {
-    const length = id.length;
-    return '*'.repeat(Math.max(length - 4, 0)) + id.slice(-4);
+  const mask = (idNum: string) => {
+    const len = idNum.length;
+    return "*".repeat(Math.max(len - 4, 0)) + idNum.slice(-4);
   };
 
   return (
@@ -40,32 +34,36 @@ export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
           <TableRow>
             <TableHead>Name</TableHead>
             <TableHead>Contact</TableHead>
-            <TableHead>Gender</TableHead>
+            {/* <TableHead>Gender</TableHead> */}
             <TableHead>ID Proof</TableHead>
-            <TableHead className="w-[100px]"></TableHead>
+            <TableHead className="w-[100px]" />
           </TableRow>
         </TableHeader>
         <TableBody>
-          {guests.map((guest) => (
-            <TableRow key={guest.id} className="cursor-pointer hover:bg-muted/50">
+          {guests.map(guest => (
+            <TableRow
+              key={guest.id}
+              className="cursor-pointer hover:bg-muted/50 transition-colors"
+              onClick={() => onGuestClick?.(guest)}
+            >
               <TableCell className="font-medium">
-                <span>{guest.first_name} {guest.last_name}</span>
+                {guest.firstName} {guest.lastName}
               </TableCell>
               <TableCell>
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Phone className="h-4 w-4" />
-                    <span>{guest.phone}</span>
+                    {guest.phone}
                   </div>
                   {guest.email && (
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Mail className="h-4 w-4" />
-                      <span>{guest.email}</span>
+                      {guest.email}
                     </div>
                   )}
                 </div>
               </TableCell>
-              <TableCell>
+              {/* <TableCell>
                 <Badge 
                   variant="outline" 
                   className={cn(
@@ -82,42 +80,33 @@ export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
                   )}
                   {guest.gender}
                 </Badge>
-              </TableCell>
+              </TableCell> */}
               <TableCell>
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm text-muted-foreground capitalize">
-                    {guest.id_proof_type.replace('_', ' ')}
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">
+                    {visibleIds[guest.id]
+                      ? guest.idProofNumber
+                      : mask(guest.idProofNumber)}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">
-                      {visibleIds[guest.id] ? guest.id_proof_number : maskId(guest.id_proof_number)}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-6 w-6"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleIdVisibility(guest.id);
-                      }}
-                    >
-                      {visibleIds[guest.id] ? (
-                        <EyeOff className="h-3.5 w-3.5" />
-                      ) : (
-                        <Eye className="h-3.5 w-3.5" />
-                      )}
-                    </Button>
-                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6"
+                    onClick={e => {
+                      e.stopPropagation();
+                      toggleId(guest.id);
+                    }}
+                  >
+                    {visibleIds[guest.id] ? (
+                      <EyeOff className="h-3.5 w-3.5" />
+                    ) : (
+                      <Eye className="h-3.5 w-3.5" />
+                    )}
+                  </Button>
                 </div>
               </TableCell>
-              <TableCell>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onGuestClick?.(guest)}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+              <TableCell className="text-right">
+                <ChevronRight className="h-4 w-4 text-muted-foreground inline-block" />
               </TableCell>
             </TableRow>
           ))}

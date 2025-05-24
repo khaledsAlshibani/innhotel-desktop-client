@@ -8,20 +8,54 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getDefaultProfilePhoto } from "@/utils/getDefaultProfilePhoto";
+import { useAuthStore } from "@/store/auth.store";
+// import { useNavigate } from "react-router-dom";
+// import { ROUTES } from "@/constants/routes";
+// import { authService } from "@/services/authService";
+import { logger } from "@/utils/logger";
+// import { useAxios } from "@/hooks";
 
 interface UserProfileProps {
   isCollapsed: boolean;
 }
 
-const userInfo = {
-  name: "John Doe",
-  email: "john@example.com",
-  role: "Admin",
-};
-
 export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
+  const { email, roles } = useAuthStore();
+  // useAxios();
+  // const navigate = useNavigate();
+  const log = logger();
+
+  log.info('Auth Store State:', { email, roles });
+
+  // Don't render if no user data
+  if (!email || !roles.length) {
+    log.info('UserProfile not rendered - missing data:', { email, roles });
+    return null;
+  }
+
+  const handleLogout = async () => {
+    log.info('Logging out user:', { email });
+    // try {
+    //   log.info('Logging out user:', { email });
+    //   await authService.logout();
+    //   clearAuth();
+    //   navigate(ROUTES.LOGIN);
+    //   log.info('Logout successful');
+    // } catch (error) {
+    //   log.error('Logout failed:', error);
+    // }
+  };
+
+  const initials = email
+    .split('@')[0]
+    .split('.')
+    .map(part => part[0])
+    .join('')
+    .toUpperCase();
+
   return (
     <div className="border-t border-zinc-800 p-4">
       <DropdownMenu>
@@ -35,13 +69,13 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
             )}
           >
             <Avatar className="h-6 w-6">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarImage src={getDefaultProfilePhoto(roles[0])} />
+              <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
             {!isCollapsed && (
               <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-zinc-100">{userInfo.name}</p>
-                <p className="text-xs text-zinc-400">{userInfo.role}</p>
+                <p className="text-sm font-medium text-zinc-100">{email}</p>
+                <p className="text-xs text-zinc-400">{roles[0]}</p>
               </div>
             )}
           </Button>
@@ -55,6 +89,10 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
         >
           <DropdownMenuLabel className="text-zinc-100">My Account</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-zinc-700" />
+          <DropdownMenuLabel className="text-xs text-zinc-400 font-normal flex items-center gap-2">
+            <Mail className="h-3 w-3 text-zinc-500" />{email}
+          </DropdownMenuLabel>
+          {/* <DropdownMenuSeparator className="bg-zinc-700" />
           <DropdownMenuItem className="text-zinc-300 focus:text-zinc-100 focus:bg-zinc-700/50">
             <User className="mr-2 h-4 w-4" />
             Profile
@@ -62,9 +100,12 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
           <DropdownMenuItem className="text-zinc-300 focus:text-zinc-100 focus:bg-zinc-700/50">
             <Settings className="mr-2 h-4 w-4" />
             Settings
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuSeparator className="bg-zinc-700" />
-          <DropdownMenuItem className="text-red-400 focus:text-red-400 focus:bg-zinc-700/50">
+          <DropdownMenuItem 
+            className="text-red-400 focus:text-red-400 focus:bg-zinc-700/50"
+            onClick={handleLogout}
+          >
             <LogOut className="mr-2 h-4 w-4" />
             Logout
           </DropdownMenuItem>
