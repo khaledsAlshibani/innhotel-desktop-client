@@ -17,16 +17,31 @@ import BranchDetails from '@/pages/BranchDetails';
 import GuestDetails from '@/pages/GuestDetails';
 import RegisterGuest from '@/pages/RegisterGuest';
 import RoomDetails from '@/pages/RoomDetails';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 const AppRoutes = () => {
   return (
     <Routes>
+      {/* Public routes */}
       <Route path={ROUTES.HOME} element={<MainLayout><Outlet /></MainLayout>}>
-        <Route index element={<Home />} />
-        <Route path={ROUTES.LOGIN} element={<Login />} />
+        <Route index element={
+          <ProtectedRoute requireAuth={false}>
+            <Home />
+          </ProtectedRoute>
+        } />
+        <Route path={ROUTES.LOGIN} element={
+          <ProtectedRoute requireAuth={false}>
+            <Login />
+          </ProtectedRoute>
+        } />
       </Route>
 
-      <Route path={ROUTES.HOME} element={<AppLayout><Outlet /></AppLayout>}>
+      {/* Protected routes */}
+      <Route path={ROUTES.HOME} element={
+        <ProtectedRoute>
+          <AppLayout><Outlet /></AppLayout>
+        </ProtectedRoute>
+      }>
         <Route path={ROUTES.ROOMS} element={<Rooms />} />
         <Route path={ROUTES.ADD_ROOM} element={<AddRoom />} />
         <Route path={ROUTES.ROOM_DETAILS} element={<RoomDetails />} />

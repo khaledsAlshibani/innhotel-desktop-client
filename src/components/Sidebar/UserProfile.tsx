@@ -12,20 +12,18 @@ import { LogOut, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getDefaultProfilePhoto } from "@/utils/getDefaultProfilePhoto";
 import { useAuthStore } from "@/store/auth.store";
-// import { useNavigate } from "react-router-dom";
-// import { ROUTES } from "@/constants/routes";
-// import { authService } from "@/services/authService";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/constants/routes";
 import { logger } from "@/utils/logger";
-// import { useAxios } from "@/hooks";
+import { toast } from "sonner";
 
 interface UserProfileProps {
   isCollapsed: boolean;
 }
 
 export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
-  const { email, roles } = useAuthStore();
-  // useAxios();
-  // const navigate = useNavigate();
+  const { email, roles, clearAuth } = useAuthStore();
+  const navigate = useNavigate();
   const log = logger();
 
   log.info('Auth Store State:', { email, roles });
@@ -37,16 +35,16 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
   }
 
   const handleLogout = async () => {
-    log.info('Logging out user:', { email });
-    // try {
-    //   log.info('Logging out user:', { email });
-    //   await authService.logout();
-    //   clearAuth();
-    //   navigate(ROUTES.LOGIN);
-    //   log.info('Logout successful');
-    // } catch (error) {
-    //   log.error('Logout failed:', error);
-    // }
+    try {
+      log.info('Logging out user:', { email });
+      clearAuth();
+      navigate(ROUTES.LOGIN);
+      log.info('Logout successful');
+      toast.success('Logged out successfully');
+    } catch (error) {
+      log.error('Logout failed:', error);
+      toast.error('Failed to logout');
+    }
   };
 
   const initials = email
