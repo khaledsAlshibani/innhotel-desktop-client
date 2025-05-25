@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -20,15 +21,12 @@ import type { CreateRoomRequest, UpdateRoomRequest } from "@/types/api/room";
 import { useState, useEffect } from "react";
 import { branchService } from "@/services/branchService";
 import { toast } from "sonner";
+import { roomSchema } from "@/schemas/roomSchema";
+import type { RoomFormValues } from "@/types/room";
+import { roomStatusOptions, roomTypeOptions } from "@/types/room";
 
 interface BaseRoomFormProps {
-  defaultValues?: {
-    room_number: string;
-    room_type_id: string;
-    status: string;
-    floor: number;
-    branch_id: string;
-  };
+  defaultValues?: Partial<RoomFormValues>;
   isLoading?: boolean;
 }
 
@@ -58,7 +56,8 @@ export const RoomForm = ({
   const [branches, setBranches] = useState<Branch[]>([]);
   const [isLoadingBranches, setIsLoadingBranches] = useState(false);
 
-  const form = useForm({
+  const form = useForm<RoomFormValues>({
+    resolver: zodResolver(roomSchema),
     defaultValues: {
       room_number: "",
       room_type_id: "1",
@@ -91,48 +90,17 @@ export const RoomForm = ({
     }
   }, [mode]);
 
-  const handleSubmit = (values: any) => {
-    if (mode === 'create' && !values.branch_id) {
-      form.setError('branch_id', { message: 'Branch is required' });
-      return;
-    }
-
-    console.log("Form Values:", {
-      room_number: values.room_number,
-      room_type_id: values.room_type_id,
-      status: values.status,
-      floor: values.floor,
-      branch_id: values.branch_id
-    });
-
-    const baseFormData = {
-      roomNumber: String(values.room_number),
+  const handleSubmit = (values: RoomFormValues) => {
+    const submitValues = {
+      branchId: parseInt(values.branch_id),
       roomTypeId: parseInt(values.room_type_id),
+      roomNumber: values.room_number,
       status: parseInt(values.status),
-      floor: values.floor,
+      floor: values.floor
     };
 
-    const formData = mode === 'create' 
-      ? { ...baseFormData, branchId: parseInt(values.branch_id) }
-      : baseFormData;
-
-    console.log("Final Form Data:", formData);
-    console.log("Form Mode:", mode);
-
-    onSubmit(formData as any);
+    onSubmit(submitValues as any);
   };
-
-  const roomTypes = [
-    { id: "1", name: "Standard" },
-    { id: "2", name: "Suite" },
-    { id: "3", name: "Deluxe" }
-  ];
-
-  const roomStatuses = [
-    { id: "0", name: "Available" },
-    { id: "1", name: "Occupied" },
-    { id: "2", name: "Under Maintenance" }
-  ];
 
   return (
     <Form {...form}>
@@ -140,12 +108,15 @@ export const RoomForm = ({
         <FormField
           control={form.control}
           name="room_number"
-          rules={{ required: "Room number is required" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Room Number</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. 101" {...field} />
+                <Input 
+                  type="text"
+                  placeholder="e.g. 101" 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -155,18 +126,17 @@ export const RoomForm = ({
         <FormField
           control={form.control}
           name="room_type_id"
-          rules={{ required: "Room type is required" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Room Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select room type" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {roomTypes.map((type) => (
+                  {roomTypeOptions.map((type) => (
                     <SelectItem key={type.id} value={type.id}>
                       {type.name}
                     </SelectItem>
@@ -181,18 +151,17 @@ export const RoomForm = ({
         <FormField
           control={form.control}
           name="status"
-          rules={{ required: "Status is required" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {roomStatuses.map((status) => (
+                  {roomStatusOptions.map((status) => (
                     <SelectItem key={status.id} value={status.id}>
                       {status.name}
                     </SelectItem>
@@ -207,17 +176,14 @@ export const RoomForm = ({
         <FormField
           control={form.control}
           name="floor"
-          rules={{ 
-            required: "Floor is required",
-            min: { value: 1, message: "Floor must be at least 1" }
-          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Floor</FormLabel>
               <FormControl>
                 <Input 
                   type="number" 
-                  min="1" 
+                  min="0"
+                  max="100"
                   placeholder="Floor number" 
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value))}
@@ -232,11 +198,10 @@ export const RoomForm = ({
           <FormField
             control={form.control}
             name="branch_id"
-            rules={{ required: "Branch is required" }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Branch</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select branch" />

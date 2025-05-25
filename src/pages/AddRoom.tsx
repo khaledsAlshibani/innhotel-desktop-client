@@ -7,15 +7,25 @@ import type { CreateRoomRequest } from "@/types/api/room";
 import { roomService } from "@/services/roomService";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
+import type { RoomTransformedValues } from "@/schemas/roomSchema";
 
 const AddRoom = () => {
   const navigate = useNavigate();
   const [isCreating, setIsCreating] = useState(false);
 
-  const handleSubmit = async (data: CreateRoomRequest) => {
+  const handleSubmit = async (data: RoomTransformedValues) => {
     try {
       setIsCreating(true);
-      await roomService.create(data);
+      
+      const createRoomRequest: CreateRoomRequest = {
+        branchId: data.branch_id,
+        roomTypeId: data.room_type_id,
+        roomNumber: data.room_number,
+        status: data.status,
+        floor: data.floor
+      };
+
+      await roomService.create(createRoomRequest);
       toast.success('Room created successfully');
       navigate(ROUTES.ROOMS);
     } catch (error) {
