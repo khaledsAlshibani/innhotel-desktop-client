@@ -3,11 +3,10 @@
 import { useAuthStore } from "@/store/auth.store";
 import type { AuthContextType } from "@/types/api/auth";
 import { useMemo, useEffect, createContext } from "react";
-import LoadingSpinner from "../Loader/LoadingSpinner";
+import LoadingSpinner from "../components/Loader/LoadingSpinner";
 import { logger } from '@/utils/logger';
 import { authService } from "@/services/authService";
 import { isAxiosError } from "axios";
-// import { authService } from "@/services/authService";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -38,7 +37,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           error: error instanceof Error ? error.message : 'Unknown error'
         });
         
-        // Only clear auth state if it's not an initial load 401 error
         if (isAxiosError(error) && error.response?.status !== 401) {
           setAuth({
             accessToken: '',

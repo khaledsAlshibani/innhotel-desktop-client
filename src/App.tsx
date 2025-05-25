@@ -1,6 +1,6 @@
 import { HashRouter as Router } from 'react-router-dom';
 import AppRoutes from '@/routes';
-import { AuthProvider } from '@/components/auth/AuthProvider';
+import { AuthProvider } from '@/context/AuthProvider';
 import { Toaster } from 'sonner';
 
 const App = () => {

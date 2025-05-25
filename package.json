@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Khaled Alshibani",
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "npm-run-all --parallel dev:react dev:electron",

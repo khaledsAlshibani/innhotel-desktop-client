@@ -32,7 +32,6 @@ export const ProtectedRoute = ({ children, requireAuth = true }: ProtectedRouteP
 
   useEffect(() => {
     if (isRedirecting && redirectTo) {
-      // A small delay is added to ensure the loader is shown
       const timer = setTimeout(() => {
         setIsRedirecting(false);
       }, 500);
