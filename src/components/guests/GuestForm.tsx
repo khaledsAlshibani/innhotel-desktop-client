@@ -85,7 +85,7 @@ export const GuestForm = ({
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>First Name <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Enter first name" {...field} />
                 </FormControl>
@@ -99,7 +99,7 @@ export const GuestForm = ({
             name="last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Last Name <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Enter last name" {...field} />
                 </FormControl>
@@ -149,7 +149,7 @@ export const GuestForm = ({
             name="id_proof_type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ID Proof Type</FormLabel>
+                <FormLabel>ID Proof Type <span className="text-destructive">*</span></FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
@@ -174,7 +174,7 @@ export const GuestForm = ({
             name="id_proof_number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ID Proof Number</FormLabel>
+                <FormLabel>ID Proof Number <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Enter ID proof number" {...field} />
                 </FormControl>

@@ -119,7 +119,7 @@ export const RoomForm = ({
           name="room_number"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Room Number</FormLabel>
+              <FormLabel>Room Number <span className="text-destructive">*</span></FormLabel>
               <FormControl>
                 <Input 
                   type="text"
@@ -137,7 +137,7 @@ export const RoomForm = ({
           name="room_type_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Room Type</FormLabel>
+              <FormLabel>Room Type <span className="text-destructive">*</span></FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full">
@@ -162,7 +162,7 @@ export const RoomForm = ({
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Status</FormLabel>
+              <FormLabel>Status <span className="text-destructive">*</span></FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full">
@@ -187,7 +187,7 @@ export const RoomForm = ({
           name="floor"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Floor</FormLabel>
+              <FormLabel>Floor <span className="text-destructive">*</span></FormLabel>
               <FormControl>
                 <Input 
                   type="number" 
@@ -209,7 +209,7 @@ export const RoomForm = ({
             name="branch_id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Branch</FormLabel>
+                <FormLabel>Branch <span className="text-destructive">*</span></FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
