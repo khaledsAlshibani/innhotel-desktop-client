@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,10 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Branch } from "@/types/api/branch";
+import { branchSchema, type BranchFormValues } from "@/schemas/branchSchema";
 
 interface BranchFormProps {
   onSubmit: (data: Branch) => void;
-  defaultValues?: Partial<Branch>;
+  defaultValues?: Partial<BranchFormValues>;
   isLoading?: boolean;
   mode?: 'create' | 'update';
 }
@@ -24,7 +26,8 @@ export const BranchForm = ({
   isLoading,
   mode = 'create' 
 }: BranchFormProps) => {
-  const form = useForm<Branch>({
+  const form = useForm<BranchFormValues>({
+    resolver: zodResolver(branchSchema),
     defaultValues: {
       name: "",
       location: "",
@@ -32,9 +35,14 @@ export const BranchForm = ({
     },
   });
 
-  const handleSubmit = async (data: Branch) => {
+  const handleSubmit = async (data: BranchFormValues) => {
     try {
-      await onSubmit(data);
+      const branchData: Branch = {
+        name: data.name,
+        location: data.location
+      };
+
+      await onSubmit(branchData);
       if (mode === 'create') {
         form.reset();
       }
@@ -53,9 +61,12 @@ export const BranchForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Branch Name</FormLabel>
+              <FormLabel>Branch Name <span className="text-destructive">*</span></FormLabel>
               <FormControl>
-                <Input placeholder="Enter branch name" {...field} />
+                <Input 
+                  placeholder="Enter branch name" 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,9 +78,12 @@ export const BranchForm = ({
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Location</FormLabel>
+              <FormLabel>Location <span className="text-destructive">*</span></FormLabel>
               <FormControl>
-                <Input placeholder="Enter branch location" {...field} />
+                <Input 
+                  placeholder="Enter branch location" 
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

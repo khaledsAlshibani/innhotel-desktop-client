@@ -36,4 +36,4 @@ export const guestSchema = z.object({
     .or(z.literal(""))
 });
 
-export type GuestFormValues = z.infer<typeof guestSchema>; 
+export type GuestFormValues = z.infer<typeof guestSchema>;
