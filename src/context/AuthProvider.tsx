@@ -11,25 +11,28 @@ import { isAxiosError } from "axios";
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { setAuth, isLoading, setLoading } = useAuthStore();
+  const { setAuth, isLoading, setLoading, isAuthenticated } = useAuthStore();
   const log = logger();
 
   useEffect(() => {
     const initializeAuth = async () => {
       try {
         log.info('Checking authentication state...');
-        const { accessToken, email, roles } = await authService.refresh();
+        
+        if (isAuthenticated) {
+          const { accessToken, email, roles } = await authService.refresh();
 
-        log.info('Refresh token successful:', {
-          isAuthenticated: true,
-          user: { email, roles }
-        });
+          log.info('Refresh token successful:', {
+            isAuthenticated: true,
+            user: { email, roles }
+          });
 
-        setAuth({
-          accessToken,
-          email,
-          roles,
-        });
+          setAuth({
+            accessToken,
+            email,
+            roles,
+          });
+        }
         setLoading(false);
       } catch (error) {
         log.error('Authentication failed:', {
@@ -48,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
     initializeAuth();
-  }, []);
+  }, [isAuthenticated]);
 
   const contextValue = useMemo(() => {
     log.debug('Auth context value updated:', { isLoading });

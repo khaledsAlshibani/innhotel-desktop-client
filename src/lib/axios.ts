@@ -46,6 +46,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const log = logger();
     const originalRequest = error.config;
+    const isAuthenticated = useAuthStore.getState().isAuthenticated;
 
     log.error(`❌ Response Error: ${originalRequest?.method?.toUpperCase()} ${originalRequest?.url}`, {
       status: error.response?.status,
@@ -53,7 +54,7 @@ axiosInstance.interceptors.response.use(
       error: error.message
     });
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && isAuthenticated) {
       originalRequest._retry = true;
 
       try {
