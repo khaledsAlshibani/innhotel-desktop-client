@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type { CreateRoomRequest, UpdateRoomRequest } from "@/types/api/room";
+import type { CreateRoomRequest, UpdateRoomRequest, RoomStatus } from "@/types/api/room";
 import { useState, useEffect } from "react";
 import { branchService } from "@/services/branchService";
 import { toast } from "sonner";
@@ -91,15 +91,24 @@ export const RoomForm = ({
   }, [mode]);
 
   const handleSubmit = (values: RoomFormValues) => {
-    const submitValues = {
-      branchId: parseInt(values.branch_id),
-      roomTypeId: parseInt(values.room_type_id),
-      roomNumber: values.room_number,
-      status: parseInt(values.status),
-      floor: values.floor
-    };
-
-    onSubmit(submitValues as any);
+    if (mode === 'create') {
+      const createRequest: CreateRoomRequest = {
+        branchId: parseInt(values.branch_id),
+        roomTypeId: parseInt(values.room_type_id),
+        roomNumber: values.room_number,
+        status: parseInt(values.status) as RoomStatus,
+        floor: values.floor
+      };
+      onSubmit(createRequest);
+    } else {
+      const updateRequest: UpdateRoomRequest = {
+        roomTypeId: parseInt(values.room_type_id),
+        roomNumber: values.room_number,
+        status: parseInt(values.status) as RoomStatus,
+        floor: values.floor
+      };
+      onSubmit(updateRequest);
+    }
   };
 
   return (
@@ -131,7 +140,7 @@ export const RoomForm = ({
               <FormLabel>Room Type</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select room type" />
                   </SelectTrigger>
                 </FormControl>
@@ -156,7 +165,7 @@ export const RoomForm = ({
               <FormLabel>Status</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                 </FormControl>
@@ -203,7 +212,7 @@ export const RoomForm = ({
                 <FormLabel>Branch</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select branch" />
                     </SelectTrigger>
                   </FormControl>
