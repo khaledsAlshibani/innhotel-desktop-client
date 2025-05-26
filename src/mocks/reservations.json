@@ -5,24 +5,18 @@
       "guest_id": 1,
       "guest_name": "John Doe",
       "check_in_date": "2024-03-20",
-      "check_out_date": "2024-03-25",
-      "reservation_date": "2024-03-01",
+      "check_out_date": "2024-03-27",
+      "reservation_date": "2024-03-13",
       "status": "Confirmed",
-      "total_cost": 1250.00,
+      "total_cost": 139.99,
       "branch_id": 1,
-      "branch_name": "InnHotel Downtown",
+      "branch_name": "Main Hotel",
       "rooms": [
         {
           "id": 1,
-          "room_id": 101,
+          "room_id": 1,
           "room_number": "101",
-          "price_per_night": 200.00
-        },
-        {
-          "id": 2,
-          "room_id": 102,
-          "room_number": "102",
-          "price_per_night": 200.00
+          "price_per_night": 99.99
         }
       ],
       "services": [
@@ -31,7 +25,7 @@
           "service_id": 1,
           "service_name": "Breakfast",
           "quantity": 2,
-          "total_price": 50.00
+          "total_price": 40.00
         }
       ]
     },

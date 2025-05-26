@@ -2,35 +2,21 @@
   "employees": [
     {
       "id": 1,
-      "first_name": "John",
-      "last_name": "Smith",
-      "email": "john.smith@innhotel.com",
-      "phone": "+1 (555) 123-4567",
-      "hire_date": "2023-01-15",
-      "position": "Manager",
-      "branch": {
-        "id": 1,
-        "name": "InnHotel Downtown",
-        "location": "Downtown",
-        "address": "123 Main St, Downtown",
-        "phone": "+1 (555) 111-0000"
-      }
+      "email": "super@innhotel.com",
+      "role": "SuperAdmin",
+      "first_name": "Super",
+      "last_name": "Admin",
+      "branch_id": 1,
+      "branch_name": "Main Hotel"
     },
     {
       "id": 2,
-      "first_name": "Sarah",
-      "last_name": "Johnson",
-      "email": "sarah.johnson@innhotel.com",
-      "phone": "+1 (555) 234-5678",
-      "hire_date": "2023-03-20",
-      "position": "Receptionist",
-      "branch": {
-        "id": 1,
-        "name": "InnHotel Downtown",
-        "location": "Downtown",
-        "address": "123 Main St, Downtown",
-        "phone": "+1 (555) 111-0000"
-      }
+      "email": "admin@innhotel.com",
+      "role": "Admin",
+      "first_name": "Admin",
+      "last_name": "User",
+      "branch_id": 1,
+      "branch_name": "Main Hotel"
     },
     {
       "id": 3,
@@ -79,6 +65,24 @@
         "address": "789 Airport Blvd, Airport District",
         "phone": "+1 (555) 333-0000"
       }
+    }
+  ],
+  "roles": [
+    {
+      "name": "SuperAdmin",
+      "description": "Super Administrator with full system access"
+    },
+    {
+      "name": "Admin",
+      "description": "Administrator with branch management access"
+    },
+    {
+      "name": "Receptionist",
+      "description": "Front desk staff with reservation management access"
+    },
+    {
+      "name": "Housekeeping",
+      "description": "Housekeeping staff with room management access"
     }
   ]
 }

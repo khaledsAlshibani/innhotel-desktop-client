@@ -2,73 +2,17 @@
   "services": [
     {
       "id": 1,
-      "name": "Breakfast Buffet",
-      "description": "Full breakfast buffet with continental and hot options",
-      "price": 25.00,
-      "branch_id": 1
-    },
-    {
-      "id": 2,
-      "name": "Room Cleaning",
-      "description": "Daily room cleaning service",
-      "price": 15.00,
-      "branch_id": 1
-    },
-    {
-      "id": 3,
-      "name": "Spa Treatment",
-      "description": "1-hour spa treatment with choice of massage",
-      "price": 80.00,
-      "branch_id": 1
-    },
-    {
-      "id": 4,
-      "name": "Airport Shuttle",
-      "description": "Round-trip airport transfer service",
-      "price": 50.00,
-      "branch_id": 2
-    },
-    {
-      "id": 5,
-      "name": "Laundry Service",
-      "description": "Same-day laundry and dry cleaning service",
-      "price": 30.00,
-      "branch_id": 1
-    },
-    {
-      "id": 6,
-      "name": "Mini Bar Restocking",
-      "description": "Daily minibar restocking service",
+      "name": "Breakfast",
+      "description": "Continental breakfast",
       "price": 20.00,
       "branch_id": 1
     },
     {
-      "id": 7,
-      "name": "Late Check-out",
-      "description": "Extended check-out until 4 PM",
-      "price": 40.00,
-      "branch_id": 1
-    },
-    {
-      "id": 8,
-      "name": "Business Center Access",
-      "description": "24-hour access to business center facilities",
-      "price": 35.00,
+      "id": 2,
+      "name": "Spa",
+      "description": "Relaxing spa session",
+      "price": 50.00,
       "branch_id": 2
-    },
-    {
-      "id": 9,
-      "name": "Gym Access",
-      "description": "Access to hotel fitness center",
-      "price": 15.00,
-      "branch_id": 1
-    },
-    {
-      "id": 10,
-      "name": "Room Service",
-      "description": "24/7 in-room dining service",
-      "price": 10.00,
-      "branch_id": 1
     }
   ],
   "room_services": [
@@ -99,15 +43,7 @@
       "reservation_id": 1,
       "service_id": 1,
       "quantity": 2,
-      "total_price": 50.00,
-      "branch_id": 1
-    },
-    {
-      "reservation_service_id": 2,
-      "reservation_id": 2,
-      "service_id": 3,
-      "quantity": 1,
-      "total_price": 80.00,
+      "total_price": 40.00,
       "branch_id": 1
     }
   ]

@@ -1,34 +1,34 @@
 {
   "rooms": [
     {
-      "id": 101,
+      "id": 1,
       "number": "101",
       "type": "Standard",
       "status": "Available",
       "floor": 1,
       "branch_id": 1,
-      "price_per_night": 200.00
+      "price_per_night": 99.99
     },
     {
-      "id": 102,
+      "id": 2,
       "number": "102",
       "type": "Standard",
       "status": "Available",
       "floor": 1,
       "branch_id": 1,
-      "price_per_night": 200.00
+      "price_per_night": 99.99
     },
     {
-      "id": 201,
+      "id": 3,
       "number": "201",
-      "type": "Deluxe",
-      "status": "Occupied",
+      "type": "Suite",
+      "status": "Available",
       "floor": 2,
       "branch_id": 1,
-      "price_per_night": 300.00
+      "price_per_night": 199.99
     },
     {
-      "id": 202,
+      "id": 4,
       "number": "202",
       "type": "Deluxe",
       "status": "Available",
@@ -37,7 +37,7 @@
       "price_per_night": 300.00
     },
     {
-      "id": 301,
+      "id": 5,
       "number": "301",
       "type": "Suite",
       "status": "Available",
@@ -46,7 +46,7 @@
       "price_per_night": 500.00
     },
     {
-      "id": 302,
+      "id": 6,
       "number": "302",
       "type": "Suite",
       "status": "Under Maintenance",
@@ -55,13 +55,47 @@
       "price_per_night": 500.00
     },
     {
-      "id": 401,
+      "id": 7,
       "number": "401",
       "type": "Presidential",
       "status": "Available",
       "floor": 4,
       "branch_id": 1,
       "price_per_night": 1000.00
+    }
+  ],
+  "room_types": [
+    {
+      "id": 1,
+      "name": "Standard",
+      "base_price": 99.99,
+      "capacity": 2,
+      "description": "Comfortable standard room with queen bed",
+      "branch_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Suite",
+      "base_price": 199.99,
+      "capacity": 4,
+      "description": "Luxurious suite with king bed and ocean view",
+      "branch_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Deluxe Room",
+      "base_price": 299.99,
+      "capacity": 4,
+      "description": "Luxurious suite with king bed and ocean view",
+      "branch_id": 2
+    },
+    {
+      "id": 4,
+      "name": "Deluxe Suite",
+      "base_price": 399.99,
+      "capacity": 4,
+      "description": "Luxurious suite with king bed and ocean view",
+      "branch_id": 2
     }
   ]
 }

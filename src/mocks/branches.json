@@ -2,31 +2,17 @@
   "branches": [
     {
       "id": 1,
-      "name": "InnHotel Downtown",
-      "location": "123 Main Street, Downtown",
-      "rooms_count": 45,
-      "employees_count": 28
+      "name": "Main Hotel",
+      "location": "123 Seaside Boulevard",
+      "rooms_count": 3,
+      "employees_count": 0
     },
     {
       "id": 2,
-      "name": "InnHotel Airport",
-      "location": "456 Airport Road, Terminal 2",
-      "rooms_count": 32,
-      "employees_count": 20
-    },
-    {
-      "id": 3,
-      "name": "InnHotel Beach Resort",
-      "location": "789 Coastal Highway, Beachfront",
-      "rooms_count": 60,
-      "employees_count": 45
-    },
-    {
-      "id": 4,
-      "name": "InnHotel Mountain Lodge",
-      "location": "321 Mountain View Road, Highlands",
-      "rooms_count": 25,
-      "employees_count": 15
+      "name": "Downtown Suites",
+      "location": "456 City Center Road",
+      "rooms_count": 0,
+      "employees_count": 0
     }
   ]
 }

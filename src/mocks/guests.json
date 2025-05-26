@@ -1,15 +1,14 @@
 {
   "guests": [
     {
-      "id": "1",
+      "id": 1,
       "first_name": "John",
       "last_name": "Doe",
       "email": "john.doe@example.com",
-      "gender": "male",
-      "phone": "+1-555-0123",
-      "address": "123 Main St, New York, NY 10001",
-      "id_proof_type": "passport",
-      "id_proof_number": "P123456789"
+      "phone": "+1234567890",
+      "address": "123 Main Street",
+      "id_proof_type": "Passport",
+      "id_proof_number": "AB1234567"
     },
     {
       "id": "2",
