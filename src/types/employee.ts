@@ -1,5 +1,3 @@
-import type { Branch } from "./branches";
-
 export const Position = {
   Receptionist: 'Receptionist',
   Manager: 'Manager',
@@ -10,15 +8,6 @@ export const Position = {
 } as const;
 
 export type Position = typeof Position[keyof typeof Position];
-
-export interface Employee {
-  id: number;
-  first_name: string;
-  last_name: string;
-  hire_date: string;
-  position: Position;
-  branch: Branch;
-}
 
 export interface EmployeeFormData {
   first_name: string;

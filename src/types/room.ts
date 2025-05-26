@@ -2,16 +2,6 @@ export type RoomStatus = 'Available' | 'Occupied' | 'Under Maintenance';
 
 export type RoomType = 'Standard' | 'Deluxe' | 'Suite' | 'Presidential';
 
-export interface Room {
-  id: number;
-  number: string;
-  type: RoomType;
-  status: RoomStatus;
-  floor: number;
-  branch_id: number;
-  price_per_night: number;
-}
-
 // Form data types
 export type RoomFormValues = {
   room_number: string;

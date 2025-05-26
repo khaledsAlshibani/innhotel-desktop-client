@@ -1,3 +1,7 @@
+/**
+ * We know HOCs are not commonly used in modern React code...
+ * but it's just an assignment and deadlines are deadlines :/
+ */
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/auth.store';
 import { ROUTES } from '@/constants/routes';

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/constants/routes";
 import FormLayout from "@/layouts/FormLayout";
 import { RoomForm } from "@/components/rooms/RoomForm";
 import type { CreateRoomRequest } from "@/types/api/room";
