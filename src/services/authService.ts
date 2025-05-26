@@ -41,6 +41,19 @@ export const authService = {
   },
 
   logout: async (): Promise<void> => {
-    console.log('Logout');
+    try {
+      const response = await axiosInstance.post('/auth/logout');
+      logger().info('Logout successful');
+      return response.data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        logger().error('Logout failed', {
+          status: error.response?.status,
+          message: error.response?.data?.message
+        });
+        throw new Error(error.response?.data?.message || 'Logout failed');
+      }
+      throw error;
+    }
   }
 };

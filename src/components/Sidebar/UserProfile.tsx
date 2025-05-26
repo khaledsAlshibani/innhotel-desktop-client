@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { logger } from "@/utils/logger";
 import { toast } from "sonner";
+import { authService } from "@/services/authService";
 
 interface UserProfileProps {
   isCollapsed: boolean;
@@ -26,7 +27,7 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
   const navigate = useNavigate();
   const log = logger();
 
-  log.info('Auth Store State:', { email, roles });
+  log.info('Auth Store State:', { email, roles, accessToken: useAuthStore().accessToken });
 
   // Don't render if no user data
   if (!email || !roles.length) {
@@ -37,6 +38,7 @@ export const UserProfile = ({ isCollapsed }: UserProfileProps) => {
   const handleLogout = async () => {
     try {
       log.info('Logging out user:', { email });
+      await authService.logout();
       clearAuth();
       navigate(ROUTES.LOGIN);
       log.info('Logout successful');
