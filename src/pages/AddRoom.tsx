@@ -7,7 +7,6 @@ import type { CreateRoomRequest } from "@/types/api/room";
 import { roomService } from "@/services/roomService";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
-import type { RoomFormValues } from "@/types/room";
 
 const AddRoom = () => {
   const navigate = useNavigate();

@@ -29,15 +29,12 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon, X, Plus } from "lucide-react";
 import type { Guest } from "@/types/guest";
-import type { Room } from "@/types/room";
 import type { Service } from "@/types/service";
-import type { Reservation, ReservationRoom, ReservationService } from "@/types/api/reservation";
+import type { Reservation } from "@/types/api/reservation";
 import type { RoomResponse } from "@/types/api/room";
 import guestsData from "@/mocks/guests.json";
 import servicesData from "@/mocks/services.json";
-import branchesData from "@/mocks/branches.json";
 import { roomService } from "@/services/roomService";
-import { toast } from "sonner";
 
 interface ReservationFormProps {
   onSubmit: (data: Reservation) => void;
@@ -63,7 +60,6 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
 
   const guests = (guestsData as { guests: Guest[] }).guests;
   const services = (servicesData as { services: Service[] }).services;
-  const branches = branchesData.branches;
 
   useEffect(() => {
     const fetchRooms = async () => {

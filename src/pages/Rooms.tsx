@@ -6,7 +6,6 @@ import { roomService } from "@/services/roomService";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
-import { toast } from "sonner";
 
 const Rooms = () => {
   const navigate = useNavigate();
