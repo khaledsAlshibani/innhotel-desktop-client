@@ -2,14 +2,14 @@ import { BranchesTable } from "@/components/branches/BranchesTable";
 import type { BranchResponse } from "@/types/api/branch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { branchService } from "@/services/branchService";
 import { useState, useEffect } from "react";
 import { RoleGuard } from "@/hooks/RoleGuard";
 import { UserRole } from "@/types/api/user";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Pagination } from "@/components/pagination/Pagination";
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
@@ -59,6 +59,15 @@ const Branches = () => {
     navigate(`/branches/${branch.id}`);
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -98,58 +107,18 @@ const Branches = () => {
             onBranchClick={handleBranchClick}
           />
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                Rows per page
-              </p>
-              <Select
-                value={pageSize.toString()}
-                onValueChange={(value) => {
-                  setPageSize(Number(value));
-                  setCurrentPage(1);
-                }}
-              >
-                <SelectTrigger className="h-8 w-[70px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {PAGE_SIZE_OPTIONS.map(size => (
-                    <SelectItem key={size} value={size.toString()}>
-                      {size}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-muted-foreground">
-                {totalCount} total items
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                Page {currentPage} of {totalPages}
-              </p>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                disabled={!hasPreviousPage}
-                onClick={() => setCurrentPage(p => p - 1)}
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                disabled={!hasNextPage}
-                onClick={() => setCurrentPage(p => p + 1)}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalPages={totalPages}
+            totalCount={totalCount}
+            hasPreviousPage={hasPreviousPage}
+            hasNextPage={hasNextPage}
+            pageSizeOptions={PAGE_SIZE_OPTIONS}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            itemName="branches"
+          />
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Plus, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import { GuestsTable } from "@/components/guests/GuestsTable";
@@ -8,7 +8,7 @@ import { guestService } from "@/services/guestService";
 import { ROUTES } from "@/constants/routes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Pagination } from "@/components/pagination/Pagination";
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
@@ -51,6 +51,15 @@ const Guests = () => {
     navigate(`${ROUTES.GUESTS}/${guest.id}`);
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -90,58 +99,18 @@ const Guests = () => {
             onGuestClick={handleGuestClick}
           />
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                Rows per page
-              </p>
-              <Select
-                value={pageSize.toString()}
-                onValueChange={(value) => {
-                  setPageSize(Number(value));
-                  setCurrentPage(1);
-                }}
-              >
-                <SelectTrigger className="h-8 w-[70px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {PAGE_SIZE_OPTIONS.map(size => (
-                    <SelectItem key={size} value={size.toString()}>
-                      {size}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-muted-foreground">
-                {totalCount} total items
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                Page {currentPage} of {totalPages}
-              </p>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                disabled={!hasPreviousPage}
-                onClick={() => setCurrentPage(p => p - 1)}
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                disabled={!hasNextPage}
-                onClick={() => setCurrentPage(p => p + 1)}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalPages={totalPages}
+            totalCount={totalCount}
+            hasPreviousPage={hasPreviousPage}
+            hasNextPage={hasNextPage}
+            pageSizeOptions={PAGE_SIZE_OPTIONS}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            itemName="guests"
+          />
         </>
       )}
     </div>
