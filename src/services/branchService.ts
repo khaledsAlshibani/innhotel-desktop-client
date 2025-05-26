@@ -5,10 +5,12 @@ import { isAxiosError } from 'axios';
 import { logger } from '@/utils/logger';
 
 export const branchService = {
-  getAll: async (): Promise<BranchesResponse> => {
+  getAll: async (pageNumber = 1, pageSize = 10): Promise<BranchesResponse> => {
     try {
-      logger().info('Fetching all branches');
-      const response = await axiosInstance.get('/branches');
+      logger().info('Fetching all branches', { pageNumber, pageSize });
+      const response = await axiosInstance.get('/branches', {
+        params: { pageNumber, pageSize }
+      });
       logger().info('Successfully fetched all branches');
       return response.data;
     } catch (error) {
