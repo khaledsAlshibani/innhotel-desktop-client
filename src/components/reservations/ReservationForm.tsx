@@ -31,33 +31,27 @@ import { CalendarIcon, X, Plus } from "lucide-react";
 import type { Guest } from "@/types/guest";
 import type { Room } from "@/types/room";
 import type { Service } from "@/types/service";
+import type { Reservation, ReservationRoom, ReservationService } from "@/types/api/reservation";
 import guestsData from "@/mocks/guests.json";
 import roomsData from "@/mocks/rooms.json";
 import servicesData from "@/mocks/services.json";
 import branchesData from "@/mocks/branches.json";
 
-interface ReservationFormData {
-  guest_id: string;
-  branch_id: string;
-  check_in_date: Date;
-  check_out_date: Date;
-  rooms: { id: string; price_per_night: number }[];
-  services: { id: string; quantity: number }[];
-}
-
 interface ReservationFormProps {
-  onSubmit: (data: ReservationFormData) => void;
+  onSubmit: (data: Reservation) => void;
+  isLoading?: boolean;
 }
 
-export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
+export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) => {
   const navigate = useNavigate();
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
   const [selectedServices, setSelectedServices] = useState<Array<{ service: Service; quantity: number }>>([]);
 
-  const form = useForm<ReservationFormData>({
+  const form = useForm<Reservation>({
     defaultValues: {
-      guest_id: "",
-      branch_id: "",
+      guestId: 0,
+      checkInDate: "",
+      checkOutDate: "",
       rooms: [],
       services: [],
     },
@@ -74,14 +68,14 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
       setSelectedRooms([...selectedRooms, room]);
       form.setValue('rooms', [
         ...form.getValues('rooms'),
-        { id: roomId, price_per_night: room.price_per_night }
+        { roomId: parseInt(roomId), pricePerNight: room.price_per_night }
       ]);
     }
   };
 
   const handleRemoveRoom = (roomId: number) => {
     setSelectedRooms(selectedRooms.filter(room => room.id !== roomId));
-    form.setValue('rooms', form.getValues('rooms').filter(room => room.id !== roomId.toString()));
+    form.setValue('rooms', form.getValues('rooms').filter(room => room.roomId !== roomId));
   };
 
   const handleAddService = (serviceId: string) => {
@@ -90,14 +84,14 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
       setSelectedServices([...selectedServices, { service, quantity: 1 }]);
       form.setValue('services', [
         ...form.getValues('services'),
-        { id: serviceId, quantity: 1 }
+        { serviceId: parseInt(serviceId), quantity: 1, unitPrice: service.price }
       ]);
     }
   };
 
   const handleRemoveService = (serviceId: number) => {
     setSelectedServices(selectedServices.filter(s => s.service.id !== serviceId));
-    form.setValue('services', form.getValues('services').filter(s => s.id !== serviceId.toString()));
+    form.setValue('services', form.getValues('services').filter(s => s.serviceId !== serviceId));
   };
 
   const handleServiceQuantityChange = (serviceId: number, quantity: number) => {
@@ -105,7 +99,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
       s.service.id === serviceId ? { ...s, quantity } : s
     ));
     form.setValue('services', form.getValues('services').map(s =>
-      s.id === serviceId.toString() ? { ...s, quantity } : s
+      s.serviceId === serviceId ? { ...s, quantity } : s
     ));
   };
 
@@ -115,7 +109,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
         {/* Guest Selection */}
         <FormField
           control={form.control}
-          name="guest_id"
+          name="guestId"
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between">
@@ -131,7 +125,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
                   Add guest
                 </Button>
               </div>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={(value) => field.onChange(parseInt(value))} value={field.value?.toString()}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a guest" />
@@ -150,48 +144,10 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
           )}
         />
 
-        {/* Branch Selection */}
-        <FormField
-          control={form.control}
-          name="branch_id"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>Branch</FormLabel>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto p-0 text-xs text-muted-foreground hover:text-primary hover:bg-transparent"
-                  onClick={() => navigate(ROUTES.ADD_BRANCH)}
-                >
-                  <Plus className="mr-1 h-3 w-3" />
-                  Add branch
-                </Button>
-              </div>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a branch" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {branches.map((branch) => (
-                    <SelectItem key={branch.id} value={branch.id.toString()}>
-                      {branch.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         {/* Check-in Date */}
         <FormField
           control={form.control}
-          name="check_in_date"
+          name="checkInDate"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Check-in Date</FormLabel>
@@ -206,7 +162,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(new Date(field.value), "PPP")
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -217,8 +173,8 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
+                    selected={field.value ? new Date(field.value) : undefined}
+                    onSelect={(date) => field.onChange(date?.toISOString().split('T')[0])}
                     disabled={(date) =>
                       date < new Date() || date > new Date(2025, 12, 31)
                     }
@@ -234,7 +190,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
         {/* Check-out Date */}
         <FormField
           control={form.control}
-          name="check_out_date"
+          name="checkOutDate"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Check-out Date</FormLabel>
@@ -249,7 +205,7 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(new Date(field.value), "PPP")
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -260,10 +216,10 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
+                    selected={field.value ? new Date(field.value) : undefined}
+                    onSelect={(date) => field.onChange(date?.toISOString().split('T')[0])}
                     disabled={(date) =>
-                      date < (form.getValues("check_in_date") || new Date()) ||
+                      date < (form.getValues("checkInDate") ? new Date(form.getValues("checkInDate")) : new Date()) ||
                       date > new Date(2025, 12, 31)
                     }
                     initialFocus
@@ -388,8 +344,8 @@ export const ReservationForm = ({ onSubmit }: ReservationFormProps) => {
           ))}
         </FormItem>
 
-        <Button type="submit" className="w-full">
-          Create Reservation
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Creating Reservation..." : "Create Reservation"}
         </Button>
       </form>
     </Form>
