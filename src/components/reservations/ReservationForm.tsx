@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import {
@@ -32,10 +32,12 @@ import type { Guest } from "@/types/guest";
 import type { Room } from "@/types/room";
 import type { Service } from "@/types/service";
 import type { Reservation, ReservationRoom, ReservationService } from "@/types/api/reservation";
+import type { RoomResponse } from "@/types/api/room";
 import guestsData from "@/mocks/guests.json";
-import roomsData from "@/mocks/rooms.json";
 import servicesData from "@/mocks/services.json";
 import branchesData from "@/mocks/branches.json";
+import { roomService } from "@/services/roomService";
+import { toast } from "sonner";
 
 interface ReservationFormProps {
   onSubmit: (data: Reservation) => void;
@@ -44,8 +46,10 @@ interface ReservationFormProps {
 
 export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) => {
   const navigate = useNavigate();
-  const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
+  const [selectedRooms, setSelectedRooms] = useState<RoomResponse[]>([]);
   const [selectedServices, setSelectedServices] = useState<Array<{ service: Service; quantity: number }>>([]);
+  const [rooms, setRooms] = useState<RoomResponse[]>([]);
+  const [isLoadingRooms, setIsLoadingRooms] = useState(true);
 
   const form = useForm<Reservation>({
     defaultValues: {
@@ -58,9 +62,24 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
   });
 
   const guests = (guestsData as { guests: Guest[] }).guests;
-  const rooms = (roomsData as { rooms: Room[] }).rooms;
   const services = (servicesData as { services: Service[] }).services;
   const branches = branchesData.branches;
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        setIsLoadingRooms(true);
+        const response = await roomService.getAll();
+        setRooms(response.items);
+      } catch (error) {
+        console.error("Failed to fetch rooms. Please try again.");
+      } finally {
+        setIsLoadingRooms(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   const handleAddRoom = (roomId: string) => {
     const room = rooms.find(r => r.id.toString() === roomId);
@@ -68,7 +87,7 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
       setSelectedRooms([...selectedRooms, room]);
       form.setValue('rooms', [
         ...form.getValues('rooms'),
-        { roomId: parseInt(roomId), pricePerNight: room.price_per_night }
+        { roomId: parseInt(roomId), pricePerNight: room.basePrice }
       ]);
     }
   };
@@ -246,10 +265,10 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
               Add room
             </Button>
           </div>
-          <Select onValueChange={handleAddRoom}>
+          <Select onValueChange={handleAddRoom} disabled={isLoadingRooms}>
             <FormControl>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Add room" />
+                <SelectValue placeholder={isLoadingRooms ? "Loading rooms..." : "Add room"} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
@@ -257,7 +276,7 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
                 .filter(room => !selectedRooms.find(r => r.id === room.id))
                 .map((room) => (
                   <SelectItem key={room.id} value={room.id.toString()}>
-                    Room {room.number} - {room.type} (${room.price_per_night}/night)
+                    Room {room.roomNumber} - {room.roomTypeName} (${room.basePrice}/night)
                   </SelectItem>
                 ))}
             </SelectContent>
@@ -268,9 +287,9 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
               className="flex items-center justify-between p-3 border rounded-lg bg-muted/50"
             >
               <div className="flex items-center gap-2">
-                <span>Room {room.number} - {room.type}</span>
+                <span>Room {room.roomNumber} - {room.roomTypeName}</span>
                 <span className="text-sm text-muted-foreground">
-                  ${room.price_per_night}/night
+                  ${room.basePrice}/night
                 </span>
               </div>
               <Button
