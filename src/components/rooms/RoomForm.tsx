@@ -79,7 +79,6 @@ export const RoomForm = ({
         })));
       } catch (error) {
         console.error('Failed to fetch branches:', error);
-        toast.error('Failed to load branches');
       } finally {
         setIsLoadingBranches(false);
       }

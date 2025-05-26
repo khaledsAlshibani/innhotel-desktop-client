@@ -30,7 +30,6 @@ const BranchDetails = () => {
         setBranch(data);
       } catch (error) {
         console.error('Failed to fetch branch:', error);
-        toast.error('Failed to load branch details');
         navigate(ROUTES.BRANCHES);
       } finally {
         setIsLoading(false);

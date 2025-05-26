@@ -52,7 +52,6 @@ const RoomDetails = () => {
         setRoom(data);
       } catch (error) {
         console.error('Failed to fetch room:', error);
-        toast.error('Failed to load room details');
         navigate(ROUTES.ROOMS);
       } finally {
         setIsLoading(false);

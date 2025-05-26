@@ -28,7 +28,6 @@ const GuestDetails = () => {
         const data = await guestService.getById(+id);
         setGuest(data);
       } catch {
-        toast.error("Failed to load guest details");
         navigate(ROUTES.GUESTS);
       } finally {
         setIsLoading(false);

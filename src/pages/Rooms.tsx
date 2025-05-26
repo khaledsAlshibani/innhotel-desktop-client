@@ -21,7 +21,7 @@ const Rooms = () => {
         setRooms(response.items);
       } catch (error) {
         console.error('Failed to fetch rooms:', error);
-        toast.error('Failed to load rooms');
+        toast.error(' rooms');
       } finally {
         setIsLoading(false);
       }

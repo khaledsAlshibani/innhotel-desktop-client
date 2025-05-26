@@ -54,7 +54,10 @@ axiosInstance.interceptors.response.use(
       error: error.message
     });
 
-    if (error.response?.status === 401 && !originalRequest._retry && isAuthenticated) {
+    if (error.response?.status === 401 && 
+        !originalRequest._retry && 
+        isAuthenticated && 
+        !originalRequest.url?.includes('/auth/refresh')) {
       originalRequest._retry = true;
 
       try {
