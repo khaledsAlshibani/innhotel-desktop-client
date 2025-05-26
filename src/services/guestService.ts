@@ -5,10 +5,14 @@ import { isAxiosError } from 'axios';
 import { logger } from '@/utils/logger';
 
 export const guestService = {
-  getAll: async (): Promise<GuestsResponse> => {
+  getAll: async (pageNumber?: number, pageSize?: number): Promise<GuestsResponse> => {
     try {
-      logger().info('Fetching all guests');
-      const response = await axiosInstance.get('/guests');
+      logger().info('Fetching all guests', { pageNumber, pageSize });
+      const params = new URLSearchParams();
+      if (pageNumber) params.append('pageNumber', pageNumber.toString());
+      if (pageSize) params.append('pageSize', pageSize.toString());
+      
+      const response = await axiosInstance.get(`/guests${params.toString() ? `?${params.toString()}` : ''}`);
       logger().info('Successfully fetched all guests');
       return response.data;
     } catch (error) {
