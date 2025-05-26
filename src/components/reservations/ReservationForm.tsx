@@ -28,13 +28,14 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon, X, Plus } from "lucide-react";
-import type { Guest } from "@/types/guest";
+import type { GuestResponse } from "@/types/api/guest";
 import type { Service } from "@/types/service";
 import type { Reservation } from "@/types/api/reservation";
 import type { RoomResponse } from "@/types/api/room";
-import guestsData from "@/mocks/guests.json";
 import servicesData from "@/mocks/services.json";
 import { roomService } from "@/services/roomService";
+import { guestService } from "@/services/guestService";
+import { toast } from "sonner";
 
 interface ReservationFormProps {
   onSubmit: (data: Reservation) => void;
@@ -46,7 +47,9 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
   const [selectedRooms, setSelectedRooms] = useState<RoomResponse[]>([]);
   const [selectedServices, setSelectedServices] = useState<Array<{ service: Service; quantity: number }>>([]);
   const [rooms, setRooms] = useState<RoomResponse[]>([]);
+  const [guests, setGuests] = useState<GuestResponse[]>([]);
   const [isLoadingRooms, setIsLoadingRooms] = useState(true);
+  const [isLoadingGuests, setIsLoadingGuests] = useState(true);
 
   const form = useForm<Reservation>({
     defaultValues: {
@@ -58,23 +61,31 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
     },
   });
 
-  const guests = (guestsData as { guests: Guest[] }).guests;
   const services = (servicesData as { services: Service[] }).services;
 
   useEffect(() => {
-    const fetchRooms = async () => {
+    const fetchData = async () => {
       try {
         setIsLoadingRooms(true);
-        const response = await roomService.getAll();
-        setRooms(response.items);
+        setIsLoadingGuests(true);
+        
+        const [roomsResponse, guestsResponse] = await Promise.all([
+          roomService.getAll(),
+          guestService.getAll()
+        ]);
+        
+        setRooms(roomsResponse.items);
+        setGuests(guestsResponse.items);
       } catch (error) {
-        console.error("Failed to fetch rooms. Please try again.");
+        toast.error("Failed to fetch data. Please try again.");
+        console.error("Error fetching data:", error);
       } finally {
         setIsLoadingRooms(false);
+        setIsLoadingGuests(false);
       }
     };
 
-    fetchRooms();
+    fetchData();
   }, []);
 
   const handleAddRoom = (roomId: string) => {
@@ -143,13 +154,13 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
               <Select onValueChange={(value) => field.onChange(parseInt(value))} value={field.value?.toString()}>
                 <FormControl>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a guest" />
+                    <SelectValue placeholder={isLoadingGuests ? "Loading guests..." : "Select a guest"} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {guests.map((guest) => (
                     <SelectItem key={guest.id} value={guest.id.toString()}>
-                      {guest.first_name} {guest.last_name}
+                      {guest.firstName} {guest.lastName}
                     </SelectItem>
                   ))}
                 </SelectContent>
