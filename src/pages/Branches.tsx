@@ -10,8 +10,7 @@ import { useState, useEffect } from "react";
 import { RoleGuard } from "@/hooks/RoleGuard";
 import { UserRole } from "@/types/api/user";
 import { Pagination } from "@/components/pagination/Pagination";
-
-const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
+import { PAGE_SIZE_OPTIONS } from "@/constants/pagination";
 
 const Branches = () => {
   const navigate = useNavigate();

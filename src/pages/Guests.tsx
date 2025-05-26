@@ -9,8 +9,7 @@ import { ROUTES } from "@/constants/routes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/pagination/Pagination";
-
-const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
+import { PAGE_SIZE_OPTIONS } from "@/constants/pagination";
 
 const Guests = () => {
   const navigate = useNavigate();

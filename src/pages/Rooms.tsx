@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
 import { Pagination } from "@/components/pagination/Pagination";
-
-const PAGE_SIZE_OPTIONS = [8, 12, 16, 24];
+import { PAGE_SIZE_OPTIONS } from "@/constants/pagination";
 
 const Rooms = () => {
   const navigate = useNavigate();
