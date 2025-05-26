@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,31 +18,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Position, type EmployeeFormData } from "@/types/employee";
-import branchesData from "@/mocks/branches.json";
-import type { Branch } from "@/types/branches";
+import { Position } from "@/types/employee";
+import type { BranchResponse } from "@/types/api/branch";
+import { employeeSchema, type EmployeeFormData } from "@/schemas/employeeSchema";
+import { branchService } from "@/services/branchService";
+import { toast } from "sonner";
 
 const positions = Object.values(Position);
-const branches: Branch[] = branchesData.branches;
 
 interface EmployeeFormProps {
   onSubmit: (data: EmployeeFormData) => void;
   defaultValues?: Partial<EmployeeFormData>;
+  isLoading?: boolean;
+  mode?: 'create' | 'update';
 }
 
-export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => {
+export const EmployeeForm = ({ 
+  onSubmit, 
+  defaultValues,
+  isLoading = false,
+  mode = 'create'
+}: EmployeeFormProps) => {
+  const [branches, setBranches] = useState<BranchResponse[]>([]);
+  const [isLoadingBranches, setIsLoadingBranches] = useState(true);
+
+  useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        const response = await branchService.getAll();
+        setBranches(response.items);
+      } catch (error) {
+        toast.error("Failed to load branches");
+        console.error("Failed to fetch branches:", error);
+      } finally {
+        setIsLoadingBranches(false);
+      }
+    };
+
+    fetchBranches();
+  }, []);
+
   const form = useForm<EmployeeFormData>({
+    resolver: zodResolver(employeeSchema),
     defaultValues: {
       first_name: "",
       last_name: "",
-      email: "",
-      phone: "",
       hire_date: new Date().toISOString().split('T')[0],
       position: Position.Receptionist,
       branch_id: 1,
       ...defaultValues
     },
   });
+
+  const isUpdate = mode === 'update';
 
   return (
     <Form {...form}>
@@ -51,7 +81,7 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>First Name <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Enter first name" {...field} />
                 </FormControl>
@@ -65,39 +95,9 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
             name="last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Last Name <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Enter last name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email (Optional)</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="Enter email address" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter phone number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,7 +111,7 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
             name="hire_date"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Hire Date</FormLabel>
+                <FormLabel>Hire Date <span className="text-destructive">*</span></FormLabel>
                 <FormControl>
                   <Input type="date" {...field} />
                 </FormControl>
@@ -125,10 +125,10 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
             name="position"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Position</FormLabel>
+                <FormLabel>Position <span className="text-destructive">*</span></FormLabel>
                 <Select 
                   onValueChange={field.onChange} 
-                  defaultValue={field.value}
+                  value={field.value}
                 >
                   <FormControl>
                     <SelectTrigger className="w-full">
@@ -154,14 +154,15 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
           name="branch_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Branch</FormLabel>
+              <FormLabel>Branch <span className="text-destructive">*</span></FormLabel>
               <Select 
                 onValueChange={(value) => field.onChange(Number(value))} 
                 defaultValue={String(field.value)}
+                disabled={isLoadingBranches}
               >
                 <FormControl>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a branch" />
+                    <SelectValue placeholder={isLoadingBranches ? "Loading branches..." : "Select a branch"} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -177,8 +178,18 @@ export const EmployeeForm = ({ onSubmit, defaultValues }: EmployeeFormProps) => 
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Register Employee
+        <Button 
+          type="submit" 
+          className="w-full"
+          disabled={isLoading || isLoadingBranches}
+        >
+          {isLoading
+            ? isUpdate
+              ? "Saving Changes..."
+              : "Creating Employee..."
+            : isUpdate
+            ? "Save Changes"
+            : "Create Employee"}
         </Button>
       </form>
     </Form>

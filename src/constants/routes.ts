@@ -6,6 +6,7 @@ export const ROUTES = {
   REGISTER_GUEST: '/guests/register',
   GUEST_DETAILS: '/guests/:id',
   EMPLOYEES: '/employees',
+  EMPLOYEE_DETAILS: '/employees/:id',
   REGISTER_EMPLOYEE: '/employees/register',
   BRANCHES: '/branches',
   ADD_BRANCH: '/branches/add',

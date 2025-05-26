@@ -9,6 +9,7 @@ import AddRoom from '@/pages/AddRoom';
 import Guests from '@/pages/Guests';
 import RegisterEmployee from '@/pages/RegisterEmployee';
 import Employees from '@/pages/Employees';
+import EmployeeDetails from '@/pages/EmployeeDetails';
 import Branches from '@/pages/Branches';
 import AddBranch from '@/pages/AddBranch';
 import Reservations from '@/pages/Reservations';
@@ -49,6 +50,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.REGISTER_GUEST} element={<RegisterGuest />} />
         <Route path={ROUTES.GUEST_DETAILS} element={<GuestDetails />} />
         <Route path={ROUTES.EMPLOYEES} element={<Employees />} />
+        <Route path={ROUTES.EMPLOYEE_DETAILS} element={<EmployeeDetails />} />
         <Route path={ROUTES.REGISTER_EMPLOYEE} element={<RegisterEmployee />} />
         <Route path={ROUTES.BRANCHES} element={<Branches />} />
         <Route path={ROUTES.ADD_BRANCH} element={<AddBranch />} />

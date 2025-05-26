@@ -15,8 +15,6 @@ export interface Employee {
   id: number;
   first_name: string;
   last_name: string;
-  email: string;
-  phone: string;
   hire_date: string;
   position: Position;
   branch: Branch;
@@ -25,8 +23,6 @@ export interface Employee {
 export interface EmployeeFormData {
   first_name: string;
   last_name: string;
-  email: string;
-  phone: string;
   hire_date: string;
   position: Position;
   branch_id: number;
