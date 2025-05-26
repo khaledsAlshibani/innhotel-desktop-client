@@ -92,7 +92,7 @@ const RoomDetails = () => {
       navigate(ROUTES.ROOMS);
     } catch (error) {
       console.error('Failed to delete room:', error);
-      toast.error('Failed to delete room');
+      toast.error('Failed to delete room. The room might be reserved.');
       setIsDeleting(false);
       setShowDeleteDialog(false);
     }
