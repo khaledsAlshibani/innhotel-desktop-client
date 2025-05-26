@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import type { Guest } from "@/types/api/guest";
+import type { Guest, GuestReq } from "@/types/api/guest";
 import { guestSchema, type GuestFormValues } from "@/schemas/guestSchema";
 
 interface GuestFormProps {
@@ -28,9 +28,14 @@ interface GuestFormProps {
 }
 
 const ID_PROOF_TYPES = [
-  { value: 'passport', label: 'Passport' },
-  { value: 'national_id', label: 'National ID' },
-  { value: 'drivers_license', label: "Driver's License" }
+  { value: 0, label: 'Passport' },
+  { value: 1, label: "Driver's License" },
+  { value: 2, label: 'National ID' }
+] as const;
+
+const GENDER_OPTIONS = [
+  { value: 0, label: 'Male' },
+  { value: 1, label: 'Female' }
 ] as const;
 
 export const GuestForm = ({
@@ -44,7 +49,8 @@ export const GuestForm = ({
     defaultValues: {
       first_name: "",
       last_name: "",
-      id_proof_type: "passport",
+      gender: 0,
+      id_proof_type: 0,
       id_proof_number: "",
       email: "",
       phone: "",
@@ -55,17 +61,29 @@ export const GuestForm = ({
 
   const handleSubmit = async (data: GuestFormValues) => {
     try {
-      const guestData: Guest = {
+      const genderMap = {
+        0: 'Male',
+        1: 'Female'
+      } as const;
+
+      const idProofTypeMap = {
+        0: 'Passport',
+        1: 'DriverLicense',
+        2: 'NationalId'
+      } as const;
+
+      const guestData: GuestReq = {
         firstName: data.first_name,
         lastName: data.last_name,
-        idProofType: data.id_proof_type,
+        gender: genderMap[data.gender as 0 | 1],
+        idProofType: idProofTypeMap[data.id_proof_type as 0 | 1 | 2],
         idProofNumber: data.id_proof_number,
         email: data.email || "",
         phone: data.phone || "",
         address: data.address || ""
       };
 
-      await onSubmit(guestData);
+      await onSubmit(guestData as any);
       if (mode === 'create') {
         form.reset();
       }
@@ -112,6 +130,31 @@ export const GuestForm = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Gender <span className="text-destructive">*</span></FormLabel>
+                <Select onValueChange={(value) => field.onChange(Number(value))} value={String(field.value)}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select gender" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {GENDER_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={String(option.value)}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -127,7 +170,9 @@ export const GuestForm = ({
               </FormItem>
             )}
           />
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="phone"
@@ -141,16 +186,14 @@ export const GuestForm = ({
               </FormItem>
             )}
           />
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="id_proof_type"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>ID Proof Type <span className="text-destructive">*</span></FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select onValueChange={(value) => field.onChange(Number(value))} value={String(field.value)}>
                   <FormControl>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select ID proof type" />
@@ -158,7 +201,7 @@ export const GuestForm = ({
                   </FormControl>
                   <SelectContent>
                     {ID_PROOF_TYPES.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
+                      <SelectItem key={type.value} value={String(type.value)}>
                         {type.label}
                       </SelectItem>
                     ))}
@@ -168,7 +211,9 @@ export const GuestForm = ({
               </FormItem>
             )}
           />
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="id_proof_number"
@@ -182,21 +227,21 @@ export const GuestForm = ({
               </FormItem>
             )}
           />
-        </div>
 
-        <FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <Button
           type="submit"

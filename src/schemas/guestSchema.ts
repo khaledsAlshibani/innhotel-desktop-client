@@ -9,10 +9,9 @@ export const guestSchema = z.object({
     .min(1, "Last name is required")
     .max(50, "Last name cannot exceed 50 characters"),
 
-  id_proof_type: z.enum(['passport', 'national_id', 'drivers_license'] as const, {
-    required_error: "Please select an ID proof type",
-    invalid_type_error: "Please select a valid ID proof type"
-  }),
+  gender: z.number().min(0).max(1),
+
+  id_proof_type: z.number().min(0).max(2),
 
   id_proof_number: z.string()
     .min(1, "ID proof number is required")

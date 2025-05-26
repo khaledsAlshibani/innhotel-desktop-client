@@ -1,4 +1,4 @@
-import { ChevronRight, Mail, Phone, Eye, EyeOff } from "lucide-react";
+import { ChevronRight, Mail, Phone, Eye, EyeOff, Mars, Venus } from "lucide-react";
 import { useState } from "react";
 import {
   Table,
@@ -9,12 +9,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import type { GuestResponse } from "@/types/api/guest";
 
 interface GuestsTableProps {
   guests: GuestResponse[];
   onGuestClick?: (guest: GuestResponse) => void;
 }
+
+const getGenderLabel = (gender: number) => gender === 0 ? 'Male' : 'Female';
+const getIdProofTypeLabel = (type: number) => {
+  switch (type) {
+    case 0: return 'Passport';
+    case 1: return "Driver's License";
+    case 2: return 'National ID';
+    default: return 'Unknown';
+  }
+};
 
 export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
   const [visibleIds, setVisibleIds] = useState<Record<number, boolean>>({});
@@ -34,7 +46,7 @@ export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
           <TableRow>
             <TableHead>Name</TableHead>
             <TableHead>Contact</TableHead>
-            {/* <TableHead>Gender</TableHead> */}
+            <TableHead>Gender</TableHead>
             <TableHead>ID Proof</TableHead>
             <TableHead className="w-[100px]" />
           </TableRow>
@@ -63,28 +75,28 @@ export const GuestsTable = ({ guests, onGuestClick }: GuestsTableProps) => {
                   )}
                 </div>
               </TableCell>
-              {/* <TableCell>
+              <TableCell>
                 <Badge 
                   variant="outline" 
                   className={cn(
                     "flex items-center gap-1.5 w-fit",
-                    guest.gender === 'male' 
+                    guest.gender === 0 
                       ? 'text-blue-600 border-blue-600/20' 
                       : 'text-pink-600 border-pink-600/20'
                   )}
                 >
-                  {guest.gender === 'male' ? (
+                  {guest.gender === 0 ? (
                     <Mars className="h-3 w-3" />
                   ) : (
                     <Venus className="h-3 w-3" />
                   )}
-                  {guest.gender}
+                  {getGenderLabel(guest.gender)}
                 </Badge>
-              </TableCell> */}
+              </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
                   <span className="font-medium">
-                    {visibleIds[guest.id]
+                    {getIdProofTypeLabel(guest.idProofType)} - {visibleIds[guest.id]
                       ? guest.idProofNumber
                       : mask(guest.idProofNumber)}
                   </span>

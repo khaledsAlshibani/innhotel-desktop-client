@@ -1,5 +1,5 @@
-export type Gender = 'male' | 'female';
-export type IdProofType = 'passport' | 'national_id' | 'drivers_license';
+export type Gender = 'Male' | 'Female';
+export type IdProofType = 'Passport' | 'DriverLicense' | 'NationalId';
 
 export interface Guest {
   id: string;
