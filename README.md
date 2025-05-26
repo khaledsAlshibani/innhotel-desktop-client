@@ -13,6 +13,7 @@ A desktop application built with Electron.js.
     - [Form Pages](#form-pages)
     - [Page Layout Guidelines](#page-layout-guidelines)
     - [Navigation](#navigation)
+- [Screenshots](#screenshots)
 
 ## Quick Start
 
@@ -269,20 +270,36 @@ const mainItems = [
 
 ---
 
-## Scrrenshots
+## Screenshots
 
-![image](https://github.com/user-attachments/assets/dd9df4fb-c3ef-4201-86e2-d0c6a24ad857)
+### Login Page
 
-![image](https://github.com/user-attachments/assets/dabb14b3-502e-480f-ab0e-3d271036ffd9)
+![Login Page](https://github.com/user-attachments/assets/42b3153a-535d-4e82-9b3d-776f0fcd12e1)
 
-![image](https://github.com/user-attachments/assets/15e5675d-2baf-4c21-bf05-2d6b5a19e26a)
+### Room Listing Page
 
-![image](https://github.com/user-attachments/assets/fa0ba2fa-4d6a-4f18-80c9-31382e07681b)
+![Room Listing Page](https://github.com/user-attachments/assets/10e8282f-3e27-4c19-8926-56805fdfa156)
 
-![image](https://github.com/user-attachments/assets/eee803b4-ccfa-45e7-939f-a7a887f884a1)
+### Add Room Page
 
-![image](https://github.com/user-attachments/assets/aa4a8e97-9e82-4f45-9dc8-eb3f02af5f3f)
+![Add Room Page](https://github.com/user-attachments/assets/189f93f3-9243-456b-962d-6723e52b4888)
 
-![image](https://github.com/user-attachments/assets/1707ffbc-4e70-451b-afcd-ac44eceb3e35)
+### Room Details Page
 
-![image](https://github.com/user-attachments/assets/4f3f0864-abf1-4e5b-a3c8-f8add3df2e65)
+![Room Details Page](https://github.com/user-attachments/assets/08a9ea75-9c15-48fb-a0ab-9942df585e16)
+
+### Guests Page
+
+![Guests Page](https://github.com/user-attachments/assets/eff80cdb-a0cb-4d7b-ae0e-27a9dcf9203f)
+
+### Add Reservation Page
+
+![Add Reservation Page](https://github.com/user-attachments/assets/d3e2a45e-d0cf-4a47-8892-8987fb5f433f)
+
+### Expanded Sidebar View
+
+![Expanded Sidebar View](https://github.com/user-attachments/assets/21a93fcc-9036-4b22-9591-cf6d9634bc91)
+
+### Quick Actions View
+
+![Quick Actions View](https://github.com/user-attachments/assets/7ddc87de-f803-4d77-83b8-7a0005ba58da)
