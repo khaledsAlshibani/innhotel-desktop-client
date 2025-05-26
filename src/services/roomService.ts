@@ -5,10 +5,12 @@ import { isAxiosError } from 'axios';
 import { logger } from '@/utils/logger';
 
 export const roomService = {
-  getAll: async (): Promise<RoomsResponse> => {
+  getAll: async (pageNumber = 1, pageSize = 10): Promise<RoomsResponse> => {
     try {
-      logger().info('Fetching all rooms');
-      const response = await axiosInstance.get('/rooms');
+      logger().info('Fetching all rooms', { pageNumber, pageSize });
+      const response = await axiosInstance.get('/rooms', {
+        params: { pageNumber, pageSize }
+      });
       logger().info('Successfully fetched all rooms');
       return response.data;
     } catch (error) {
