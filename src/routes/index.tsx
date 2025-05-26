@@ -16,9 +16,9 @@ import Reservations from '@/pages/Reservations';
 import AddReservation from '@/pages/AddReservation';
 import BranchDetails from '@/pages/BranchDetails';
 import GuestDetails from '@/pages/GuestDetails';
-import RegisterGuest from '@/pages/RegisterGuest';
 import RoomDetails from '@/pages/RoomDetails';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import AddGuest from '@/pages/AddGuest';
 
 const AppRoutes = () => {
   return (
@@ -47,7 +47,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ADD_ROOM} element={<AddRoom />} />
         <Route path={ROUTES.ROOM_DETAILS} element={<RoomDetails />} />
         <Route path={ROUTES.GUESTS} element={<Guests />} />
-        <Route path={ROUTES.REGISTER_GUEST} element={<RegisterGuest />} />
+        <Route path={ROUTES.ADD_GUEST} element={<AddGuest />} />
         <Route path={ROUTES.GUEST_DETAILS} element={<GuestDetails />} />
         <Route path={ROUTES.EMPLOYEES} element={<Employees />} />
         <Route path={ROUTES.EMPLOYEE_DETAILS} element={<EmployeeDetails />} />

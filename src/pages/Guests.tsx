@@ -68,7 +68,7 @@ const Guests = () => {
             View and manage guest information.
           </p>
         </div>
-        <Button onClick={() => navigate(ROUTES.REGISTER_GUEST)}>
+        <Button onClick={() => navigate(ROUTES.ADD_GUEST)}>
           <Plus className="mr-2 h-4 w-4" />
           Add Guest
         </Button>

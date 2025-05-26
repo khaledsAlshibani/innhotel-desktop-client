@@ -3,7 +3,7 @@ export const ROUTES = {
   LOGIN: '/login',
   ROOMS: '/rooms',
   GUESTS: '/guests',
-  REGISTER_GUEST: '/guests/register',
+  ADD_GUEST: '/guests/add',
   GUEST_DETAILS: '/guests/:id',
   EMPLOYEES: '/employees',
   EMPLOYEE_DETAILS: '/employees/:id',

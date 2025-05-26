@@ -6,7 +6,7 @@ import { guestService } from "@/services/guestService";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const RegisterGuest = () => {
+const AddGuest = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,4 +34,4 @@ const RegisterGuest = () => {
   );
 };
 
-export default RegisterGuest;
+export default AddGuest;

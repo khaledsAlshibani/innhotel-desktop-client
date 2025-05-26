@@ -145,7 +145,7 @@ export const ReservationForm = ({ onSubmit, isLoading }: ReservationFormProps) =
                   variant="ghost"
                   size="sm"
                   className="h-auto p-0 text-xs text-muted-foreground hover:text-primary hover:bg-transparent"
-                  onClick={() => navigate(ROUTES.REGISTER_GUEST)}
+                  onClick={() => navigate(ROUTES.ADD_GUEST)}
                 >
                   <Plus className="mr-1 h-3 w-3" />
                   Add guest
