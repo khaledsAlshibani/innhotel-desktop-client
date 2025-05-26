@@ -5,9 +5,13 @@ import { EmployeeForm } from "@/components/employees/EmployeeForm";
 import FormLayout from "@/layouts/FormLayout";
 import { employeeService } from "@/services/employeeService";
 import { ROUTES } from "@/constants/routes";
+import { RoleGuard } from "@/hooks/RoleGuard";
+import { UserRole } from "@/types/api/user";
 
 const RegisterEmployee = () => {
   const navigate = useNavigate();
+
+  RoleGuard(UserRole.SuperAdmin);
 
   const handleSubmit = async (data: EmployeeFormData) => {
     try {

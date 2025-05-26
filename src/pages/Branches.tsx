@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { branchService } from "@/services/branchService";
 import { useState, useEffect } from "react";
+import { RoleGuard } from "@/hooks/RoleGuard";
+import { UserRole } from "@/types/api/user";
 
 const Branches = () => {
   const navigate = useNavigate();
   const [branches, setBranches] = useState<BranchResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  RoleGuard(UserRole.SuperAdmin);
 
   useEffect(() => {
     const fetchBranches = async () => {

@@ -12,8 +12,11 @@ import { DeleteConfirmationDialog } from "@/components/Dialog/DeleteConfirmation
 import SingleItemLayout from "@/layouts/SingleItemLayout";
 import { format } from "date-fns";
 import type { EmployeeFormData } from "@/schemas/employeeSchema";
+import { RoleGuard } from "@/hooks/RoleGuard";
+import { UserRole } from "@/types/api/user";
 
 const EmployeeDetails = () => {
+  RoleGuard(UserRole.SuperAdmin);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [employee, setEmployee] = useState<EmployeeResponse | null>(null);

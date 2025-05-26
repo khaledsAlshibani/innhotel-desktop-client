@@ -10,6 +10,8 @@ import { CardTitle, CardDescription } from "@/components/ui/card";
 import { toast } from "sonner";
 import { DeleteConfirmationDialog } from "@/components/Dialog/DeleteConfirmationDialog";
 import SingleItemLayout from "@/layouts/SingleItemLayout";
+import { RoleGuard } from "@/hooks/RoleGuard";
+import { UserRole } from "@/types/api/user";
 
 const BranchDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +21,8 @@ const BranchDetails = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  RoleGuard(UserRole.SuperAdmin);
 
   useEffect(() => {
     const fetchBranch = async () => {

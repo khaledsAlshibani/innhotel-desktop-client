@@ -6,10 +6,14 @@ import FormLayout from "@/layouts/FormLayout";
 import { branchService } from "@/services/branchService";
 import { useState } from "react";
 import { toast } from "sonner";
+import { RoleGuard } from "@/hooks/RoleGuard";
+import { UserRole } from "@/types/api/user";
 
 const AddBranch = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  RoleGuard(UserRole.SuperAdmin);
 
   const handleSubmit = async (data: Branch) => {
     try {

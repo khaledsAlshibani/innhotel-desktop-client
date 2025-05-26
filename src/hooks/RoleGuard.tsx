@@ -3,15 +3,19 @@ import type { UserRole } from "@/types/api/user";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const RoleGuard = (role: UserRole) => {
-  const { roles } = useAuthStore();
+export const RoleGuard = (roles: UserRole | UserRole[]) => {
+  const { roles: storedRoles } = useAuthStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!roles.includes(role)) {
+    const hasRequiredRole = Array.isArray(roles)
+      ? roles.some(role => storedRoles.includes(role))
+      : storedRoles.includes(roles);
+
+    if (!hasRequiredRole) {
       navigate("/");
     }
-  }, [roles, navigate, role]);
+  }, [storedRoles, navigate, roles]);
 
   return null;
 };
