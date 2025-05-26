@@ -4,7 +4,6 @@ import type { EmployeeFormData } from "@/schemas/employeeSchema";
 import { EmployeeForm } from "@/components/employees/EmployeeForm";
 import FormLayout from "@/layouts/FormLayout";
 import { employeeService } from "@/services/employeeService";
-import { ROUTES } from "@/constants/routes";
 import { RoleGuard } from "@/hooks/RoleGuard";
 import { UserRole } from "@/types/api/user";
 
@@ -27,7 +26,7 @@ const RegisterEmployee = () => {
 
       await employeeService.create(employeeData);
       toast.success("Employee registered successfully");
-      navigate(ROUTES.EMPLOYEES);
+      navigate(-1);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to register employee");
     }

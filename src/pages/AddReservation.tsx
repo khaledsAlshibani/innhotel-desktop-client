@@ -16,7 +16,7 @@ const AddReservation = () => {
       setIsLoading(true);
       await reservationService.create(data);
       toast.success("Reservation created successfully");
-      navigate(ROUTES.RESERVATIONS);
+      navigate(-1);
     } catch (error) {
       toast.error("Failed to create reservation");
       console.error("Error creating reservation:", error);

@@ -13,20 +13,30 @@ import { authService } from "@/services/authService";
 import { useState } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import { useNavigate } from "react-router-dom";
+import { loginSchema, type loginFormValues } from "@/schemas/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login = () => {
   const [error, setError] = useState<string | null>(null);
   const { setAuth, setLoading, isLoading } = useAuthStore();
   const navigate = useNavigate();
 
-  const form = useForm({
+  // const form = useForm({
+  //   defaultValues: {
+  //     email: "super@innhotel.com",
+  //     password: "Sup3rP@ssword!",
+  //   },
+  // });
+
+  const form = useForm<loginFormValues>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "super@innhotel.com",
       password: "Sup3rP@ssword!",
     },
   });
 
-  const onSubmit = async (data: { email: string; password: string }) => {
+  const onSubmit = async (data: loginFormValues) => {
     try {
       setLoading(true);
       setError(null);

@@ -20,7 +20,7 @@ const AddBranch = () => {
       setIsLoading(true);
       await branchService.create(data);
       toast.success('Branch created successfully');
-      navigate(ROUTES.BRANCHES);
+      navigate(-1);
     } catch (error) {
       console.error('Failed to create branch:', error);
       toast.error('Failed to create branch');

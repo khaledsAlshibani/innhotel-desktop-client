@@ -17,7 +17,7 @@ const AddRoom = () => {
       setIsCreating(true);
       await roomService.create(data);
       toast.success('Room created successfully');
-      navigate(ROUTES.ROOMS);
+      navigate(-1);
     } catch (error) {
       console.error('Failed to create room:', error);
       if (error instanceof AxiosError) {
